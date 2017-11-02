@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        ConnectEd
+    </title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Support responsive design later -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">ConnectEd</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <a href="#">Dashboard</a>
+            </li>
+            <li>
+                <a href="#">Courses</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Page 3</a>
+            </li>
+        </ul>
+
+    </nav>
+    <div class='container-fluid'>
+        <div class="dashboard-container">
+            <a class="dashboard-item" href="#">
+                <h3>LOREM</h3>
+                <p>blah blah blah welcome to the jungle</p>
+            </a>
+
+            <a class="dashboard-item" href="#" target="_blank">
+                <h3>IPSUM</h3>
+                <p>blah blah blah welcome to the jungle</p>
+            </a>
+
+        </div>
+    </div>
+    </div>
+
+    <div class='chat-container'>
+        <div id="chat-top">
+            <div class='chat-group-name'>
+                INFO 4105
+            </div>
+            <div class='chat-controls'>
+                <button id="chat-size-toggle-button" class='chat-controls-button button btn'>-</button>
+            </div>
+        </div>
+
+        <div id="chat-collapsible">
+            <div id='chat-content' class='chat-content'>
+                <!--Chat messages in divs or spans?-->
+            </div>
+            <div class='chat-controls'>
+                <input id='chat-message-textbox' class="chat-controls-input" type='text' placeholder="type a message">
+                <br>
+                <button id='chat-submit-button' class='chat-controls-button button btn'>Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/chat.js"></script>
+
+</body>
+
+</html>
