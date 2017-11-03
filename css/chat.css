@@ -9,8 +9,8 @@
 }
 
 #chat-content {
-    min-height: 25em;
-    max-height: 50em;
+    max-height: 500px;
+    min-height: 300px;
     padding: 0.5em;
     background-color: #e5e5e5;
     overflow-wrap: break-word;
