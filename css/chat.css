@@ -2,15 +2,14 @@
     background-color: #A41C32; 
     position: fixed;
     bottom: 0px;
-    right: 2em;
-    width: 500px;
+    right: 3em;
+    width: 350px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
     border-radius: 4px 4px 0px 0px;
 }
 
 #chat-content {
-    max-height: 500px;
-    min-height: 300px;
+    height: 300px;
     padding: 0.5em;
     background-color: #e5e5e5;
     overflow-wrap: break-word;
@@ -34,6 +33,7 @@
 
 #chat-message-textbox {
     width: 100%;
+    margin: 0px;
 }
 
 .chat-controls {

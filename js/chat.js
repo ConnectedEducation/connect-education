@@ -11,11 +11,13 @@ let chatTop = document.getElementById('chat-top');
 function chat() {
 
     // Mobile responsive design
+
+    /*
     console.log(window.innerWidth/window.innerHeight);
     if(window.innerWidth/window.innerHeight < 1){
         chatContainer.style.right = '0em';
         chatContainer.style.width = '100%';
-    }
+    }*/
 
     chatInput.onkeydown = function (event) {
         if (event.keyCode == 13)
