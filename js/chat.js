@@ -1,3 +1,4 @@
+let chatContainer = document.getElementById('chat-container');
 let chatContent = document.getElementById('chat-content');
 let chatInput = document.getElementById('chat-message-textbox');
 let chatButton = document.getElementById('chat-submit-button');
@@ -8,6 +9,13 @@ let chatTop = document.getElementById('chat-top');
 // Add profile picture next to each message
 
 function chat() {
+
+    // Mobile responsive design
+    console.log(window.innerWidth/window.innerHeight);
+    if(window.innerWidth/window.innerHeight < 1){
+        chatContainer.style.right = '0em';
+        chatContainer.style.width = '100%';
+    }
 
     chatInput.onkeydown = function (event) {
         if (event.keyCode == 13)
@@ -43,6 +51,7 @@ function chat() {
             sizeToggleButton.innerHTML = '-';
             chatTop.style.borderBottomStyle = 'solid';
         }
+        sizeToggleButton.blur();
     }
 
     chatButton.addEventListener("click", sendMessage, false);
