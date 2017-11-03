@@ -17,15 +17,19 @@ function chat() {
         chatContainer.style.width = '100%';
     }
 
-    chatInput.onkeydown = function (event) {
+    chatInput.oninput = function (event) {
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
 
         if(this.scrollHeight > 120){
             this.style.overflow = 'auto';
         }
+        if(event.keyCode == 13){
+            sendMessage();
+        }
     }
 
+    
     chatInput.onkeyup = function(event){
         if(event.keyCode == 13){
             sendMessage();
@@ -42,7 +46,7 @@ function chat() {
             chatContent.appendChild(messageContainer);
             chatContent.appendChild(document.createElement('BR'));
         }
-        
+
         chatContent.scrollTop = chatContent.scrollHeight;
         clearInput(chatInput);
     }
