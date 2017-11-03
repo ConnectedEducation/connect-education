@@ -34,6 +34,10 @@
 #chat-message-textbox {
     width: 100%;
     margin: 0px;
+    height: 2em;
+    overflow: hidden;
+    max-height: 120px;
+    resize: none;
 }
 
 .chat-controls {

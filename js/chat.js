@@ -11,17 +11,25 @@ let chatTop = document.getElementById('chat-top');
 function chat() {
 
     // Mobile responsive design
-
-    /*
     console.log(window.innerWidth/window.innerHeight);
     if(window.innerWidth/window.innerHeight < 1){
         chatContainer.style.right = '0em';
         chatContainer.style.width = '100%';
-    }*/
+    }
 
     chatInput.onkeydown = function (event) {
-        if (event.keyCode == 13)
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+
+        if(this.scrollHeight > 120){
+            this.style.overflow = 'auto';
+        }
+    }
+
+    chatInput.onkeyup = function(event){
+        if(event.keyCode == 13){
             sendMessage();
+        }
     }
 
     let sendMessage = function () {
@@ -29,18 +37,20 @@ function chat() {
         message = message.replace(/[<>]/g, ''); // Temporary sanitization measure.
         let messageContainer = document.createElement('DIV');
         
-        console.log(message.match(/^\s+$/));
         if(message != '' && !message.match(/^\s+$/)){
             messageContainer.innerHTML = message;
             chatContent.appendChild(messageContainer);
             chatContent.appendChild(document.createElement('BR'));
         }
-        clearInput(chatInput);
+        
         chatContent.scrollTop = chatContent.scrollHeight;
+        clearInput(chatInput);
     }
 
     let clearInput = function (ele) {
         ele.value = '';
+        ele.style.height = '2em';
+        ele.style.overflow = 'hidden';
     }
 
     let toggleSize = function () {
