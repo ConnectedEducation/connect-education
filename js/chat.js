@@ -14,7 +14,8 @@ function chat() {
     console.log(window.innerWidth/window.innerHeight);
     if(window.innerWidth/window.innerHeight < 1){
         chatContainer.style.right = '0em';
-        chatContainer.style.width = '100%';
+        chatContainer.style.width = '60%';
+        chatContent.style.maxHeight = '14em';
     }
 
     chatInput.oninput = function (event) {

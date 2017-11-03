@@ -41,6 +41,7 @@ body{
     margin-bottom: 0.5em;
     background-color: #861B2D;
     border-radius: 0px;
+    border-style: none;
 }
 
 .navbar-default .navbar-brand{
