@@ -73,6 +73,7 @@
 }
 
 #chat-top > .chat-controls > button{
+    width: auto;
     border-radius: inherit;
     background-color: #861B2D;
 }

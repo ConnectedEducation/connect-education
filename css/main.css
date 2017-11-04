@@ -107,7 +107,12 @@ hr {
 }
 .profile-picture{
     width: 100%;
+    margin-bottom: 0.25em;
 }
 .profile-course-list > a{
     display: block;
+}
+
+.picture-container{
+    text-align: center;
 }
