@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        ConnectEd
+    </title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Support responsive design later -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html" onclick='this.blur()'>ConnectEd</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="index.html">Dashboard</a>
+            </li>
+            <li>
+                <a href="courses.html">Courses</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="profile.html">[username]</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class='container-fluid'>
+        <div class='ce-container'>
+            <div id='profile' class="ce-panel profile row">
+                <div class='profile-head col-md-9'>
+                    <h1>John Doe</h1>
+                    <p>Student</p>
+                    <div class='profile-bio'>
+                        here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by
+                        injected humour, or randomised words which don't look even slightly believable. If you are going
+                        to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
+                        the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks
+                        as necessary, making this the first true generator on the Internet. It uses a dictionary of over
+                        200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which
+                        looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour,
+                        or non-characteristic words etc.
+                    </div>
+                </div>
+                <div class='col-md-3 picture-container'>
+                    <image class='profile-picture' src='assets/images/blank-profile-picture.png' alt='profile picture'>
+                </div>
+                <div class='profile-body col-md-12'>
+                    <hr>
+                    <div class='profile-course-list'>
+                        <h2>Courses</h2>
+                        <a href='#'>INFO 4105: Search Engine Principles (S10)</a>
+                        <a href='#'>INFO 4115: Human Factors and Web Design (S50)</a>
+                        <a href='#'>INFO 4190: Integration Project I (S50)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- find another way to implement chat -->
+    <div id='chat-container'>
+        <div id="chat-top">
+            <div class='chat-group-name'>
+                INFO 4105
+            </div>
+            <div class='chat-controls'>
+                <button id="chat-size-toggle-button" class='button btn'>-</button>
+            </div>
+        </div>
+        <div id="chat-collapsible">
+            <div id='chat-content'>
+                <!--Chat messages in divs or spans?-->
+            </div>
+            <div class='chat-controls'>
+                <!--<input id='chat-message-textbox' type='text' placeholder="type a message">-->
+                <textarea id="chat-message-textbox" placeholder="type in a message"></textarea>
+                <button id='chat-submit-button' class='button btn'>Submit</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/chat.js"></script>
+
+    <script>
+        let profile = document.getElementById('profile');
+        // Mobile responsive design
+        console.log(window.innerWidth / window.innerHeight);
+        if (window.innerWidth / window.innerHeight < 1) {
+            console.log('mobile');
+            profile.style.width = '90%';
+        }
+    </script>
+</body>
+
+</html>

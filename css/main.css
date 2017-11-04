@@ -17,6 +17,10 @@ body{
     text-align: center;
 }
 
+.profile{
+    width: 60%;
+}
+
 .dashboard-item{
     max-width: 500px;
     max-height: 700px;
@@ -85,6 +89,9 @@ hr {
     border-color: #d1d1d1;
 }
 
+.todo-head{
+    text-align: center;
+}
 /*
 .todo-head::after{
     content: HELLO;
@@ -97,4 +104,10 @@ hr {
 
 .todo-title{
     font-size: 2em;
+}
+.profile-picture{
+    width: 100%;
+}
+.profile-course-list > a{
+    display: block;
 }

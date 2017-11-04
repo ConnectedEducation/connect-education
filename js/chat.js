@@ -11,8 +11,10 @@ let chatTop = document.getElementById('chat-top');
 function chat() {
 
     // Mobile responsive design
+    // Turn this into seperate resize function
     console.log(window.innerWidth/window.innerHeight);
     if(window.innerWidth/window.innerHeight < 1){
+        console.log('mobile');
         chatContainer.style.right = '1em';
         chatContainer.style.width = '60%';
         chatContent.style.maxHeight = '14em';
@@ -50,6 +52,7 @@ function chat() {
 
         chatContent.scrollTop = chatContent.scrollHeight;
         clearInput(chatInput);
+        chatInput.focus();
     }
 
     let clearInput = function (ele) {
