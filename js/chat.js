@@ -13,7 +13,7 @@ function chat() {
     // Mobile responsive design
     console.log(window.innerWidth/window.innerHeight);
     if(window.innerWidth/window.innerHeight < 1){
-        chatContainer.style.right = '0em';
+        chatContainer.style.right = '1em';
         chatContainer.style.width = '60%';
         chatContent.style.maxHeight = '14em';
     }
