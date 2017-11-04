@@ -49,11 +49,12 @@ chatControlsBottom.appendChild(chatButton);
 // I guess that's why React is a thing
 
 // Add profile picture next to each message
+// Allow for user to enter linebreaks using SHIFT+Enter
 function chat() {
     // Mobile responsive design
     // Turn this into seperate resize function
-    console.log(window.innerWidth/window.innerHeight);
-    if(window.innerWidth/window.innerHeight < 1){
+    console.log(window.innerWidth / window.innerHeight);
+    if (window.innerWidth / window.innerHeight < 1) {
         console.log('mobile');
         chatContainer.style.right = '1em';
         chatContainer.style.width = '80%';
@@ -64,17 +65,16 @@ function chat() {
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
 
-        if(this.scrollHeight > 120){
+        if (this.scrollHeight > 120) {
             this.style.overflow = 'auto';
         }
-        if(event.keyCode == 13){
+        if (event.keyCode == 13) {
             sendMessage();
         }
     }
 
-    
-    chatInput.onkeyup = function(event){
-        if(event.keyCode == 13){
+    chatInput.onkeyup = function (event) {
+        if (event.keyCode == 13) {
             sendMessage();
         }
     }
@@ -83,8 +83,8 @@ function chat() {
         let message = chatInput.value;
         message = message.replace(/[<>]/g, ''); // Temporary sanitization measure.
         let messageContainer = document.createElement('DIV');
-        
-        if(message != '' && !message.match(/^\s+$/)){
+
+        if (message != '' && !message.match(/^\s+$/)) {
             messageContainer.innerHTML = message;
             chatContent.appendChild(messageContainer);
             chatContent.appendChild(document.createElement('BR'));

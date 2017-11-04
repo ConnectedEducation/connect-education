@@ -17,10 +17,6 @@ body{
     text-align: center;
 }
 
-.profile{
-    width: 60%;
-}
-
 .dashboard-item{
     max-width: 500px;
     max-height: 700px;
@@ -115,4 +111,12 @@ hr {
 
 .picture-container{
     text-align: center;
+}
+
+.todo-links{
+    text-align: center;
+}
+
+.ce-page{
+    width: 60%;
 }
