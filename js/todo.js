@@ -1,0 +1,1 @@
+// Do same thing as you did with courses.js
