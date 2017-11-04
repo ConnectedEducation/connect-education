@@ -1,15 +1,55 @@
-let chatContainer = document.getElementById('chat-container');
-let chatContent = document.getElementById('chat-content');
-let chatInput = document.getElementById('chat-message-textbox');
-let chatButton = document.getElementById('chat-submit-button');
-let sizeToggleButton = document.getElementById('chat-size-toggle-button');
-let chatCollapsible = document.getElementById('chat-collapsible');
-let chatTop = document.getElementById('chat-top');
+let chatContainer = document.createElement('DIV');
+chatContainer.id = 'chat-container';
+
+let chatTop = document.createElement('DIV');
+chatTop.id = 'chat-top';
+
+let chatGroupName = document.createElement('DIV');
+chatGroupName.className = 'chat-group-name';
+chatGroupName.innerHTML = 'INFO 4105';
+
+let chatControlsTop = document.createElement('DIV');
+chatControlsTop.className = 'chat-controls';
+
+let sizeToggleButton = document.createElement('BUTTON');
+sizeToggleButton.id = 'chat-size-toggle-button';
+sizeToggleButton.className = 'button btn';
+sizeToggleButton.innerHTML = '-';
+
+let chatCollapsible = document.createElement('DIV');
+chatCollapsible.id = 'chat-collapsible';
+
+let chatContent = document.createElement('DIV');
+chatContent.id = 'chat-content';
+
+let chatControlsBottom = document.createElement('DIV');
+chatControlsBottom.className = 'chat-controls';
+
+let chatInput = document.createElement('TEXTAREA');
+chatInput.id = 'chat-message-textbox';
+chatInput.placeholder = 'type in a message';
+
+let chatButton = document.createElement('BUTTON');
+chatButton.id = 'chat-submit-button';
+chatButton.className = 'button btn';
+chatButton.innerHTML = 'Send';
+
+// Build the chat box
+document.body.appendChild(chatContainer);
+chatContainer.appendChild(chatTop);
+chatTop.appendChild(chatGroupName);
+chatTop.appendChild(chatControlsTop);
+chatControlsTop.appendChild(sizeToggleButton);
+chatContainer.appendChild(chatCollapsible);
+chatCollapsible.appendChild(chatContent);
+chatCollapsible.appendChild(chatControlsBottom);
+chatControlsBottom.appendChild(chatInput);
+chatControlsBottom.appendChild(chatButton);
+
+// I guess that's why React is a thing
 
 // Add profile picture next to each message
-
 function chat() {
-
     // Mobile responsive design
     // Turn this into seperate resize function
     console.log(window.innerWidth/window.innerHeight);
