@@ -57,7 +57,7 @@ function chat() {
     if (window.innerWidth / window.innerHeight < 1) {
         console.log('mobile');
         chatContainer.style.right = '1em';
-        chatContainer.style.width = '80%';
+        chatContainer.style.width = '90%';
         chatContent.style.maxHeight = '14em';
     }
 
