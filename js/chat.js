@@ -56,6 +56,7 @@ function Chat(/*chatID*/ name) {
     chatControlsBottom.appendChild(chatInput);
     chatControlsBottom.appendChild(chatButton);
 
+    let messageHistory = [];
     // Mobile responsive design
     // Turn this into seperate resize function
     console.log(window.innerWidth / window.innerHeight);
@@ -84,9 +85,18 @@ function Chat(/*chatID*/ name) {
         }
     }
 
+    /*
+    let loadMessages = function(){
+        // load from messageHistory
+    }
+    */
+
     let sendMessage = function () {
         let message = chatInput.value;
         message = message.replace(/[<>]/g, ''); // Temporary sanitization measure.
+
+        messageHistory.push(message);
+
         let messageContainer = document.createElement('DIV');
 
         if (message != '' && !message.match(/^\s+$/)) {
@@ -98,6 +108,8 @@ function Chat(/*chatID*/ name) {
         chatContent.scrollTop = chatContent.scrollHeight;
         clearInput(chatInput);
         chatInput.focus();
+
+        console.log(messageHistory);
     }
 
     let clearInput = function (ele) {
