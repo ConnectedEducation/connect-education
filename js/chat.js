@@ -119,7 +119,7 @@ function Chat(/*chatID*/ name) {
         sizeToggleButton.blur();
     }
 
-    //chatButton.addEventListener("click", sendMessage, false);
+    chatButton.addEventListener("click", sendMessage, false);
     sizeToggleButton.addEventListener("click", toggleSize, false);
 
     //toggleSize(); // start minimized?
