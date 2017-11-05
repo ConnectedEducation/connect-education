@@ -1,26 +1,26 @@
-#chat-container {
+.chat-container {
     background-color: #A41C32; 
-    position: fixed;
-    bottom: 0px;
-    right: 3em;
     width: 350px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-    border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 4px 4px;
+    display: inline-block;
+    margin: 0em 0.5em 0.5em 0.5em;
 }
 
-#chat-content {
+.chat-content {
     height: 300px;
     padding: 0.5em;
     background-color: #e5e5e5;
     overflow-wrap: break-word;
     overflow-y: auto;
+    border-radius: 0px;
     border-left-style: solid;
     border-right-style: solid;
     border-width: 1px;
     border-color: #c1c1c1;
 }
 
-#chat-content > div{
+.chat-content > div{
     max-width: 100%;
     margin: 0.5em 0em 0.5em 0em;
     width: auto;
@@ -31,7 +31,7 @@
     box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
-#chat-message-textbox {
+.chat-message-textbox {
     width: 100%;
     margin: 0px;
     height: 2em;
@@ -45,35 +45,43 @@
     text-align: right;
 }
 
-#chat-top {
+.chat-top {
     width: 100%;
     font-size: 0em;
-    border-radius: inherit;
+    border-top-right-radius: inherit;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: #c1c1c1;
     color: white;
 }
 
-#chat-top>.chat-group-name {
+.chat-top>.chat-group-name {
     width: 90%;
     font-size: initial;
     padding-left: 0.5em;
     vertical-align: middle;
 }
 
-#chat-top>div {
+.chat-top>div {
     display: inline-block;
 }
 
-#chat-top>.chat-controls{
+.chat-top>.chat-controls{
     width: 10%;
     border-top-right-radius: inherit;
     background-color: inherit;
 }
 
-#chat-top > .chat-controls > button{
+.chat-top > .chat-controls > button{
     width: auto;
     border-radius: inherit;
     background-color: #861B2D;
+}
+
+/*make chats-container into a grid*/
+#chats-container{
+    position: fixed;
+    bottom: 0px;
+    right: 2em;
+    /*max-height: 100%;*/
 }

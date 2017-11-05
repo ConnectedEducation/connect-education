@@ -1,63 +1,68 @@
-let chatContainer = document.createElement('DIV');
-chatContainer.id = 'chat-container';
+// I guess this is why React is a thing
 
-let chatTop = document.createElement('DIV');
-chatTop.id = 'chat-top';
+let chatsContainer = document.createElement('DIV');
+chatsContainer.id = "chats-container";
+document.body.appendChild(chatsContainer);
 
-let chatGroupName = document.createElement('DIV');
-chatGroupName.className = 'chat-group-name';
-chatGroupName.innerHTML = 'INFO 4105';
+// > Add profile picture next to each message
+// > Allow for user to enter linebreaks using SHIFT+Enter
+function Chat(/*chatID*/ name) {
+    let chatContainer = document.createElement('DIV');
+    chatContainer.className = 'chat-container';
 
-let chatControlsTop = document.createElement('DIV');
-chatControlsTop.className = 'chat-controls';
+    let chatTop = document.createElement('DIV');
+    chatTop.className = 'chat-top';
 
-let sizeToggleButton = document.createElement('BUTTON');
-sizeToggleButton.id = 'chat-size-toggle-button';
-sizeToggleButton.className = 'button btn';
-sizeToggleButton.innerHTML = '-';
+    let chatGroupName = document.createElement('DIV');
+    chatGroupName.className = 'chat-group-name';
+    chatGroupName.innerHTML = name;
 
-let chatCollapsible = document.createElement('DIV');
-chatCollapsible.id = 'chat-collapsible';
+    let chatControlsTop = document.createElement('DIV');
+    chatControlsTop.className = 'chat-controls';
 
-let chatContent = document.createElement('DIV');
-chatContent.id = 'chat-content';
+    let sizeToggleButton = document.createElement('BUTTON');
+    sizeToggleButton.className = 'chat-size-toggle-button';
+    sizeToggleButton.className = 'button btn';
+    sizeToggleButton.innerHTML = '-';
 
-let chatControlsBottom = document.createElement('DIV');
-chatControlsBottom.className = 'chat-controls';
+    let chatCollapsible = document.createElement('DIV');
+    chatCollapsible.className = 'chat-collapsible';
 
-let chatInput = document.createElement('TEXTAREA');
-chatInput.id = 'chat-message-textbox';
-chatInput.placeholder = 'type in a message';
+    let chatContent = document.createElement('DIV');
+    chatContent.className = 'chat-content';
 
-let chatButton = document.createElement('BUTTON');
-chatButton.id = 'chat-submit-button';
-chatButton.className = 'button btn';
-chatButton.innerHTML = 'Send';
+    let chatControlsBottom = document.createElement('DIV');
+    chatControlsBottom.className = 'chat-controls chat-bottom';
 
-// Build the chat box
-document.body.appendChild(chatContainer);
-chatContainer.appendChild(chatTop);
-chatTop.appendChild(chatGroupName);
-chatTop.appendChild(chatControlsTop);
-chatControlsTop.appendChild(sizeToggleButton);
-chatContainer.appendChild(chatCollapsible);
-chatCollapsible.appendChild(chatContent);
-chatCollapsible.appendChild(chatControlsBottom);
-chatControlsBottom.appendChild(chatInput);
-chatControlsBottom.appendChild(chatButton);
+    let chatInput = document.createElement('TEXTAREA');
+    chatInput.className = 'chat-message-textbox';
+    chatInput.placeholder = 'type in a message';
 
-// I guess that's why React is a thing
+    let chatButton = document.createElement('BUTTON');
+    chatButton.className = 'chat-submit-button';
+    chatButton.className = 'button btn';
+    chatButton.innerHTML = 'Send';
 
-// Add profile picture next to each message
-// Allow for user to enter linebreaks using SHIFT+Enter
-function chat() {
+    // Build the chat box
+    //document.body.appendChild(chatContainer);
+    chatsContainer.appendChild(chatContainer);
+    chatContainer.appendChild(chatTop);
+    chatTop.appendChild(chatGroupName);
+    chatTop.appendChild(chatControlsTop);
+    chatControlsTop.appendChild(sizeToggleButton);
+    chatContainer.appendChild(chatCollapsible);
+    chatCollapsible.appendChild(chatContent);
+    chatCollapsible.appendChild(chatControlsBottom);
+    chatControlsBottom.appendChild(chatInput);
+    chatControlsBottom.appendChild(chatButton);
+
     // Mobile responsive design
     // Turn this into seperate resize function
     console.log(window.innerWidth / window.innerHeight);
     if (window.innerWidth / window.innerHeight < 1) {
         console.log('mobile');
-        chatContainer.style.right = '1em';
-        chatContainer.style.width = '90%';
+        chatsContainer.style.right = '1em';
+        chatsContainer.style.width = '90%';
         chatContent.style.maxHeight = '14em';
     }
 
@@ -114,8 +119,11 @@ function chat() {
         sizeToggleButton.blur();
     }
 
-    chatButton.addEventListener("click", sendMessage, false);
+    //chatButton.addEventListener("click", sendMessage, false);
     sizeToggleButton.addEventListener("click", toggleSize, false);
+
+    //toggleSize(); // start minimized?
 }
 
-let myChat = new chat();
+let nuChat = new Chat('INFO 4115');
+let theChat = new Chat('The Goons');
