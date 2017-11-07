@@ -87,7 +87,14 @@ function Chat(/*chatID*/ name) {
 
     /*
     let loadMessages = function(){
-        // load from messageHistory
+        Hmm... make object for each chat that holds message history
+        Something like:
+            let chatHistory = {
+                chatID: chatID,
+                messages: []
+            } 
+            
+        load from messageHistory
     }
     */
 
