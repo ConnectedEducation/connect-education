@@ -10,40 +10,41 @@
     <link rel="stylesheet" href="css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="js/fakedb.js"></script>
+
     <!-- Support responsive design later -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
+<body onload="document.getElementById('userName').innerHTML = currentUser['name'];">
     <nav class="navbar navbar-default">
-        <div lass="container-fluid">
-            <div class="navbar-header" onclick='this.blur()'>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">ConnectEd</a>
-            </div>
+        <div class="navbar-header" onclick='this.blur()'>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">ConnectEd</a>
+        </div>
 
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <li>
-                            <a href="index.html">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="courses.html">Courses</a>
-                        </li>
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                        <li>
-                            <a href="profile.html">[name]</a>
-                        </li>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <li>
+                        <a href="index.html">Dashboard</a>
                     </li>
-                </ul>
-            </div>
+                    <li>
+                        <a href="courses.html">Courses</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a id='userName' href="profile.html">[name]</a>
+                    </li>
+                </li>
+            </ul>
         </div>
     </nav>
 
@@ -69,10 +70,7 @@
         </div>
     </div>
 
-    <script src="js/fakedb.js"></script>
-
     <script src='js/profile.js'></script>
-
     <script src="js/chat.js"></script>
 
     <script>
