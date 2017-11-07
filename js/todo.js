@@ -1,19 +1,19 @@
 for(let todo in todos){
     let todoTitle = document.createElement('P');
     todoTitle.className = "todo-title no-margins";
-    todoTitle.innerHTML = todos[todo]['title'];
+    todoTitle.textContent = todos[todo]['title'];
 
     let course = document.createElement('P');
     course.className = "todo-detail no-margins";
-    course.innerHTML = todos[todo]['course'];
+    course.textContent = todos[todo]['course'];
 
     let dueDate = document.createElement('P');
     dueDate.className = "todo-detail no-margins";
-    dueDate.innerHTML = 'Due: ' + todos[todo]['dueDate'];
+    dueDate.textContent = 'Due: ' + todos[todo]['dueDate'];
 
     let todoBody = document.createElement('DIV');
     todoBody.className = 'todo-body';
-    todoBody.innerHTML = todos[todo]['body'];
+    todoBody.textContent = todos[todo]['body'];
 
     let todoItem = document.createElement('A');
     todoItem.className = "ce-panel dashboard-item";

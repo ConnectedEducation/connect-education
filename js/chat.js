@@ -100,14 +100,13 @@ function Chat(/*chatID*/ name) {
 
     let sendMessage = function () {
         let message = chatInput.value;
-        message = message.replace(/[<>]/g, ''); // Temporary sanitization measure.
 
         messageHistory.push(message);
 
         let messageContainer = document.createElement('DIV');
 
         if (message != '' && !message.match(/^\s+$/)) {
-            messageContainer.innerHTML = message;
+            messageContainer.textContent = message;
             chatContent.appendChild(messageContainer);
             chatContent.appendChild(document.createElement('BR'));
         }

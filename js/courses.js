@@ -9,8 +9,8 @@ for(let course in courses){
     courseContainer.href = 'coursesample.html';
     courseContainer.className = "ce-panel course";
 
-    courseDescription.innerHTML = courses[course]['description'];
-    courseTitle.innerHTML = courses[course]['title'];
+    courseDescription.textContent = courses[course]['description'];
+    courseTitle.textContent = courses[course]['title'];
 
     courseContainer.appendChild(courseTitle);
     courseContainer.appendChild(document.createElement('HR'));
