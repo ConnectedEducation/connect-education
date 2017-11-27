@@ -5,6 +5,14 @@
     <title>
         ConnectEd
     </title>
+
+    <!-- Temporary timer -->
+    <script>
+        // Start timer
+        let timeStart = new Date().valueOf();
+        console.log('timeStart:', timeStart);
+    </script>
+
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/main.css">
@@ -50,16 +58,24 @@
 
     <div class='container-fluid'>
         <div id="shill-container" style="width: 100%; text-align: center;">
-                <div class="ce-panel" id="shill">Visit <a href="https://ultimatepizzaworks.wordpress.com">ultimatepizzaworks.wordpress.com</a> for some pizza!</div>
+            <div class="ce-panel" id="shill">Visit
+                <a href="https://ultimatepizzaworks.wordpress.com">ultimatepizzaworks.wordpress.com</a> for some pizza!</div>
         </div>
-        
+
         <div id="todos-container" class="ce-container dashboard-container">
         </div>
     </div>
 
     <script src="js/todo.js"></script>
     <script src="js/chat.js"></script>
-
+    
+    <!-- Temporary timer -->
+    <script>
+        // Stop timer
+        let timeStop = new Date().valueOf();
+        console.log('timeStop:', timeStop);
+        console.log("Page took", (timeStop - timeStart), "milliseconds to load.");
+    </script>
 </body>
 
 </html>
