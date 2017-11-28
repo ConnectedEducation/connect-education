@@ -7,12 +7,8 @@
     </title>
 
     <!-- Temporary timer -->
-    <script>
-        // Start timer
-        let timeStart = new Date().valueOf();
-        console.log('timeStart:', timeStart);
-    </script>
-    
+    <script src="js/timer.js"></script>
+
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/main.css">
@@ -80,10 +76,7 @@
 
     <!-- Temporary timer -->
     <script>
-        // Stop timer
-        let timeStop = new Date().valueOf();
-        console.log('timeStop:', timeStop);
-        console.log("Page took", (timeStop - timeStart), "milliseconds to load.");
+        startTimer.stopTime();
     </script>
 </body>
 
