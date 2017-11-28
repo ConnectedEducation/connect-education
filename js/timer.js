@@ -9,7 +9,7 @@ function Timer(){
         let difference = stopTime - startTime;
         console.log('difference:', difference);
         
-        let timeString = "start time:" + startTime + '<br>' + "stop time:" + stopTime + '<br>' + "difference:" + difference + '\n';
+        let timeString = "start time: " + startTime + ' ms<br>' + "stop time: " + stopTime + ' ms<br>' + "difference: " + difference + ' ms';
         console.log(timeString);
 
         timerContainer.innerHTML = timeString;
