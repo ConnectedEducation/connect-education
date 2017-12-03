@@ -62,8 +62,8 @@ function Chat(/*chatID*/ name) {
     console.log(window.innerWidth / window.innerHeight);
     if (window.innerWidth / window.innerHeight < 1) {
         console.log('mobile');
-        chatsContainer.style.right = '1em';
-        chatsContainer.style.width = '90%';
+        chatsContainer.style.right = '0';
+        chatsContainer.style.width = '60%';
         chatContent.style.maxHeight = '14em';
     }
 
@@ -144,4 +144,4 @@ function Chat(/*chatID*/ name) {
 }
 
 let nuChat = new Chat('INFO 4115');
-let theChat = new Chat('The Goons');
+//let theChat = new Chat('The Goons');
