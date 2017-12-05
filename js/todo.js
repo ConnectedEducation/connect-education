@@ -31,4 +31,10 @@ for(let todo in todos){
     todoItem.appendChild(todoBody);
 
     document.getElementById('todos-container').appendChild(todoItem);
+
+    console.log(window.innerWidth / window.innerHeight);
+    if (window.innerWidth / window.innerHeight < 1) {
+        console.log('mobile');
+        todoItem.style.width = "100%";
+    }
 }

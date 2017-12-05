@@ -22,9 +22,11 @@ body{
 }
 
 .dashboard-item{
-    max-width: 500px;
-    max-height: 700px;
-    vertical-align: top;
+    /*max-width: 500px;
+    max-height: 700px;*/
+    width: 48%;
+    box-sizing: border-box;
+    vertical-align: bottom;
     overflow: auto;
 }
 
