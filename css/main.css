@@ -17,6 +17,10 @@ body{
     text-align: center;
 }
 
+#todos-container{
+    text-align: left;
+}
+
 .dashboard-item{
     max-width: 500px;
     max-height: 700px;
