@@ -1,0 +1,23 @@
+nav {
+    display: flex;
+    width: 100%;
+    background-color: pink;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.logo {
+    margin: 1em;
+}
+
+nav > a {
+    margin: 1em;
+}
+
+.footer {
+    text-align: center;
+}
+
+.panel {
+    background-color: grey;
+}
