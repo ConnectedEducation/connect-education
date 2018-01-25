@@ -10,20 +10,20 @@ var myServer = http.createServer((req, res) => {
     // Generic function that sends files.
     function fetchFile(dir, callback) {
         fs.readFile(dir, (err, data) => {
-            callback(data);
+            callback(data.toString());
         });
     }
 
     // Puts the view and the partials together. Right now only takes into account the header and footer partials.
-    function sendHTML(view) {
+    function sendPage(view) {
         let count = 0;
         let partialDir = './partials/';
         let partialFiles = ['header.html', 'footer.html'];
         let pageParts = [];
 
-        for (i = 0; i < partialFiles.length; i++) {
+        function makePage(i) {
             fs.readFile(partialDir + partialFiles[i], (err, data) => {
-                pageParts[count] = data;
+                pageParts[i] = data.toString();
                 count++;
                 if (count == 2) {
                     res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -31,6 +31,10 @@ var myServer = http.createServer((req, res) => {
                     res.end();
                 }
             });
+        }
+
+        for (i = 0; i < partialFiles.length; i++) {
+            makePage(i);
         }
     }
 
@@ -43,7 +47,7 @@ var myServer = http.createServer((req, res) => {
     // Route the requests.
     switch (req.url) {
         case '/':
-            fetchFile('./views/index.html', sendHTML);
+            fetchFile('./views/index.html', sendPage);
             break;
         // TEMP: This is just for testing.
         case '/ls':
@@ -52,7 +56,7 @@ var myServer = http.createServer((req, res) => {
             break;
         // Serve the web page.
         case '/courses':
-            fetchFile('./views/courses.html', sendHTML);
+            fetchFile('./views/courses.html', sendPage);
             break;
         // Serve the CSS to go along with the web page. TODO: Make this more dynamic.
         case '/css/main.css':
