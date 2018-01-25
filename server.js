@@ -7,24 +7,52 @@ var fs = require('fs');
 // Create the server.
 var myServer = http.createServer((req, res) => {
 
+    // Generic function that sends files.
+    function fetchFile(dir, callback) {
+        fs.readFile(dir, (err, data) => {
+            callback(data);
+        });
+    }
+
+    // Puts the view and the partials together. Right now only takes into account the header and footer partials.
+    function sendHTML(view) {
+        let count = 0;
+        let partialDir = './partials/';
+        let partialFiles = ['header.html', 'footer.html'];
+        let pageParts = [];
+
+        for (i = 0; i < partialFiles.length; i++) {
+            fs.readFile(partialDir + partialFiles[i], (err, data) => {
+                pageParts[count] = data;
+                count++;
+                if (count == 2) {
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.write(pageParts[0] + view + pageParts[1]);
+                    res.end();
+                }
+            });
+        }
+    }
+
+    /*
+    function sendCSS(data){
+
+    }
+    */
+
     // Route the requests.
     switch (req.url) {
         case '/':
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end("Hello world!");
+            fetchFile('./views/index.html', sendHTML);
             break;
         // TEMP: This is just for testing.
         case '/ls':
             res.writeHead(200, { 'Content-Type': 'text/plain' });
             getDirItems('.', (result) => res.end(result));
             break;
-        // Serve the web page. TODO: Make this more dynamic.
+        // Serve the web page.
         case '/courses':
-            fs.readFile('./courses.html', (err, data) => {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write(data);
-                res.end();
-            });
+            fetchFile('./views/courses.html', sendHTML);
             break;
         // Serve the CSS to go along with the web page. TODO: Make this more dynamic.
         case '/css/main.css':
@@ -58,4 +86,4 @@ function getDirItems(dir, callback) {
 // Start the server.
 const port = 3000;
 myServer.listen(port);
-console.log("Server started on port", port.toString() + '.', "Press CTRL+C to stop.");
+console.log("Server started (port", port.toString() + ").", "Press CTRL+C to stop...");
