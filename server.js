@@ -14,20 +14,16 @@ var myServer = http.createServer((req, res) => {
             fs.readFile(dir, (err, data) => {
                 sendPage(data.toString());
             });
-        } else if(dir.match(/.css$/)){
+        } else if (dir.match(/.css$/)) {
             fs.readFile(dir, (err, data) => {
-                sendCSS(data.toString());
+                sendFile(data.toString(), 'text/css');
             });
-        } else if(dir.match(/.js$/)){
-            console.log('JS needs to be sent.');
+        } else if (dir.match(/.js$/)) {
+            fs.readFile(dir, (err, data) => {
+                sendFile(data.toString(), 'text/javascript');
+            });
         }
     }
-
-    /*
-    function sendJS(){
-
-    }
-    */
 
     // Sends requested HTML files.
     function sendPage(view) {
@@ -42,9 +38,7 @@ var myServer = http.createServer((req, res) => {
                 pageParts[i] = data.toString();
                 count++;
                 if (count == 2) {
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.write(pageParts[0] + view + pageParts[1]);
-                    res.end();
+                    sendFile(pageParts[0] + view + pageParts[1], 'text.html');
                 }
             });
         }
@@ -54,10 +48,9 @@ var myServer = http.createServer((req, res) => {
         }
     }
 
-    // Sends requested CSS files.
-    function sendCSS(css) {
-        res.writeHead(200, { 'Content-Type': 'text/css' });
-        res.write(css);
+    function sendFile(data, type) {
+        res.writeHead(200, { 'Content-Type': type });
+        res.write(data);
         res.end();
     }
 
@@ -81,6 +74,14 @@ var myServer = http.createServer((req, res) => {
         // Serve the CSS to go along with the web page. TODO: Make this more dynamic.
         case '/css/main.css':
             fetchFile('./css/main.css');
+            break;
+
+        case '/js/chat.js':
+            fetchFile('./js/chat.js');
+            break;
+
+        case '/css/chat.css':
+            fetchFile('./css/chat.css');
             break;
 
         default:
