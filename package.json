@@ -1,0 +1,24 @@
+{
+  "name": "connect-education",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PJ623/connect-education.git"
+  },
+  "author": "PJ623",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PJ623/connect-education/issues"
+  },
+  "homepage": "https://github.com/PJ623/connect-education#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "handlebars": "^4.0.11"
+  }
+}
