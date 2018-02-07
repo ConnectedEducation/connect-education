@@ -7,6 +7,7 @@ const port = 3000;
 // TODO:
 // Connect DB
 // Complete some part of front end
+// Set up static files and stuff
 // Set up Socket.io
 
 // Set up middleware.
