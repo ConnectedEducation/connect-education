@@ -6,22 +6,6 @@ nav {
     align-items: center;
 }
 
-.logo {
-    margin: 1em;
-}
-
-nav > a {
-    margin: 1em;
-}
-
-.footer {
-    text-align: center;
-}
-
-.panel {
-    background-color: grey;
-}
-
 h1{
     color: pink;
 }
