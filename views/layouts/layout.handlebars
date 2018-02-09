@@ -12,7 +12,29 @@
 </head>
 
 <body>
+    <nav class="flex">
+        <div class="flex">
+            <a class="nav-item" href="#">Home</a>
+            <a class="nav-item" href="#">About</a>
+            <a class="nav-item" href="#">Courses</a>
+        </div>
+
+        <div class="flex">
+            <a class="nav-item" href="{{ userPage }}">
+                <div class="flex">
+                    <img class="thumbnail" src="{{ avatarDir }}" alt="avatar">
+                    <span>{{ userName }}</span>
+                </div>
+            </a>
+        </div>
+    </nav>
+
     {{{ body }}}
+
+    <div id="footer">
+        <hr>
+        <p>Connect Education 2018</p>
+    </div>
 </body>
 
 </html>

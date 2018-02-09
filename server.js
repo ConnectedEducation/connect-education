@@ -25,7 +25,23 @@ app.use(bodyparser.urlencoded({extended: false}));
 
 // Index
 app.get('/', (req, res) => {
-    res.render('index', { title: 'HEY'});
+    // Make fake db full of todo items
+    // Make it so render multiple todo items
+    // Basically make this fetch all todo items (change route?)
+    let userID = 0;
+    let imgFile = 'test.jpg';
+
+    res.render('index', { title: 'HEY', todoTitle: 'INFO 4105', todoBody: 'Search Engine Class',
+    userName: 'Rusty Shackleford', avatarDir: '/user/' + userID + '/media/' + imgFile, userPage: '#'});
+});
+
+app.get('/user/:userID/media/:imgFile', (req, res) => {
+    // TODO: Do error handling! Make sure the file exists before sending it.
+    fs.readFile('.' + req.url, (err, data) => {
+        res.writeHead(200, {"Content-Type": 'image/jpg'});
+        res.write(data, 'binary');
+        res.end();
+    });
 });
 
 // General courses
@@ -34,7 +50,7 @@ app.get('/courses', (req, res) => {
 });
 
 // Specific course
-app.get('/courses/:courseId', (req, res) => {
+app.get('/courses/:courseID', (req, res) => {
     res.send('got course ' + req.params.courseId + '!');
 });
 
@@ -45,7 +61,7 @@ app.get('/user/:userId', (req, res) => {
 
 // Respond with CSS
 app.get('/css/:cssfile', (req, res) => {
-    fs.readFile('./' + req.url, (err, data) => {
+    fs.readFile('.' + req.url, (err, data) => {
         res.writeHead(200, {"Content-Type": 'text/css'});
         res.write(data);
         res.end();
@@ -54,7 +70,7 @@ app.get('/css/:cssfile', (req, res) => {
 
 // Respond with JS
 app.get('/js/:jsfile', (req, res) => {
-    fs.readFile('./' + req.url, (err, data) => {
+    fs.readFile('.' + req.url, (err, data) => {
         res.writeHead(200, {"Content-Type": 'text/js'});
         res.write(data);
         res.end()
