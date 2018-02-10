@@ -1,8 +1,9 @@
 <div class="container flex">
+    {{#each todos}}
     <div class="panel">
-        <h2>{{ todoTitle }}</h2>
-        <hr>
-        <p>{{ todoBody }}</p>
+            {{this}}
     </div>
+    {{/each}}
+
 </div>
 <script src="/js/chat.js"></script>

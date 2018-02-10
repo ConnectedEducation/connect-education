@@ -7,7 +7,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-  
 }
 
 nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
