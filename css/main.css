@@ -14,12 +14,11 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
 }
 
 .container {
-    /*width: 100%;*/
     margin: auto;
     padding: 1em;
 }
 
-.wrapper {
+.full {
     width: 100%;
 }
 
@@ -57,12 +56,22 @@ nav > .flex > .nav-item {
     padding: 0.5em;
     color: white;
     text-decoration: none;
+    height: 100%;
+}
+
+nav > .flex > .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .thumbnail {
     max-height: 36px;
     max-width: 36px;
     margin: 8px;
+}
+
+.large{
+    max-height: 300px;
+    max-width: 300px;
 }
 
 #footer {

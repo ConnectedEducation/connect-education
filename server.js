@@ -1,10 +1,10 @@
 // ConnectED Server
 
-var express = require('express');
+var express = require("express");
 var app = express();
 const port = 3000;
 
-var fs = require('fs');
+var fs = require("fs");
 
 // TODO:
 // Connect DB
@@ -16,13 +16,18 @@ var fs = require('fs');
 let selectedUser = {
     userID: 0,
     userName: "Rusty Shackleford",
-    avatarDir: '/user/0/media/test.jpg',
+    avatarDir: "/user/0/media/test.jpg",
     todos: [{color: "#FF8A80", title: "Assignment 1", course: "INFO 4105", dueDate: "2/12/2018", description: "Lorem ipsum."},
     {color: "#FFD180", title: "Reading 1", course: "INFO 4200", dueDate: "2/14/2018", description: "Read this please."},
     {color: "#FFFF8D", title: "Project", course: "INFO 4300", dueDate: "3/20/2018", description: "Big project."},
-    {color: "#CFD8DC", title: "Assignment 1", course: "INFO 4400", dueDate: "4/12/2018", description: "Florem blipsum."}]
-    // add courses
-    // add profile bio stuff
+    {color: "#CFD8DC", title: "Assignment 1", course: "INFO 4400", dueDate: "4/12/2018", description: "Florem blipsum."}],
+    courses: [{title: "INFO 4105", description: "Hello!"},
+    {title: "INFO 4200", description: "Hello!"},
+    {title: "INFO 4300", description: "Hello!"},
+    {title: "INFO 4400", description: "Hello!"}],
+    bio: "I'm a really cool guy!"
+    // Store dueDate as Date object
+    // dueDate: new Date("December 17, 1995 03:24:00")
 
     /*
     COLORS:
@@ -32,85 +37,101 @@ let selectedUser = {
     yellow: #FFFF8D
     grey: #CFD8DC
     */
-
 }
 
 // ONLY USE FOR STORING IN DB
 function computeMediaDir(userID, fileName) {
-    return '/user/' + userID + '/media/' + fileName;
+    return "/user/" + userID + "/media/" + fileName;
 }
 
 // Set up middleware.
-var bodyparser = require('body-parser');
+var bodyparser = require("body-parser");
 
 // Set the view engine as handlebars.
-var hbs = require('express-handlebars');
-app.engine('handlebars', hbs({ extname: 'handlebars', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/' }));
-app.set('view engine', 'handlebars');
+var hbs = require("express-handlebars");
+app.engine("handlebars", hbs({ extname: "handlebars", defaultLayout: "layout", layoutsDir: __dirname + "/views/layouts/" }));
+app.set("view engine", "handlebars");
 
 // Use body-parser middleware. NOT REALLY USED YET...
 app.use(bodyparser.urlencoded({ extended: false }));
 
 // Index
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     // Make fake db full of todo items
     // Make it so render multiple todo items
     // Basically make this fetch all todo items (change route?)
 
-    res.render('index', {
-        title: 'index', userName: selectedUser.userName,
-        todos: selectedUser.todos, avatarDir: selectedUser.avatarDir
+    res.render("index", {
+        todos: selectedUser.todos,
+        userID: selectedUser.userID,
+        title: "index",
+        userName: selectedUser.userName,
+        avatarDir: selectedUser.avatarDir
     });
 });
 
-app.get('/user/:userID/media/:imgFile', (req, res) => {
+app.get("/user/:userID/media/:imgFile", (req, res) => {
     // TODO: Do error handling! Make sure the file exists before sending it.
-    fs.readFile('.' + req.url, (err, data) => {
+    fs.readFile("." + req.url, (err, data) => {
         if (err) {
             // Try to make error visible to user instead
             console.log(err);
             // Try to serve null.jpg instead
         } else {
-            res.writeHead(200, { "Content-Type": 'image/jpg' });
-            res.write(data, 'binary');
+            res.writeHead(200, { "Content-Type": "image/jpg" });
+            res.write(data, "binary");
             res.end();
         }
     });
 });
 
-app.get('/assets/images/:imgFile', (req, res) => {
+app.get("/assets/images/:imgFile", (req, res) => {
     // TODO: Do error handling! Make sure the file exists before sending it.
-    fs.readFile('.' + req.url, (err, data) => {
+    fs.readFile("." + req.url, (err, data) => {
         if (err) {
             // Try to make error visible to user instead
             console.log(err);
             // Try to serve null.jpg instead
         } else {
-            res.writeHead(200, { "Content-Type": 'image/jpg' });
-            res.write(data, 'binary');
+            res.writeHead(200, { "Content-Type": "image/jpg" });
+            res.write(data, "binary");
             res.end();
         }
     });
 });
 
 // General courses
-app.get('/courses', (req, res) => {
-    res.send('Got courses');
+app.get("/courses", (req, res) => {
+    res.render("courses", {
+        courses: selectedUser.courses,
+        userID: selectedUser.userID,
+        title: "index",
+        userName: selectedUser.userName,
+        avatarDir: selectedUser.avatarDir
+    });
+    //res.send("Got courses");
 });
 
 // Specific course
-app.get('/courses/:courseID', (req, res) => {
-    res.send("got course " + req.params.courseId + '!');
+app.get("/courses/:courseID", (req, res) => {
+    res.send("got course " + req.params.courseId + "!");
 });
 
 // User profile
-app.get('/user/:userID', (req, res) => {
-    res.send("got user " + req.params.userID + '!');
+app.get("/user/:userID", (req, res) => {
+    //res.send("got user " + req.params.userID + "!");
+    res.render("user", {
+        bio: selectedUser.bio,
+        userID: selectedUser.userID,
+        title: "index",
+        userName: selectedUser.userName,
+        avatarDir: selectedUser.avatarDir
+    });
 });
 
 // Respond with CSS
-app.get('/css/:cssfile', (req, res) => {
-    fs.readFile('.' + req.url, (err, data) => {
+app.get("/css/:cssfile", (req, res) => {
+    fs.readFile("." + req.url, (err, data) => {
         if (err) {
             console.log(err);
         } else {
@@ -122,8 +143,8 @@ app.get('/css/:cssfile', (req, res) => {
 });
 
 // Respond with JS
-app.get('/js/:jsfile', (req, res) => {
-    fs.readFile('.' + req.url, (err, data) => {
+app.get("/js/:jsfile", (req, res) => {
+    fs.readFile("." + req.url, (err, data) => {
         if (err) {
             console.log(err);
         } else {

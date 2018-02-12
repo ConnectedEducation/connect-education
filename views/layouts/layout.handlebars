@@ -5,7 +5,7 @@
 
 <head>
     <title>
-        {{ title }}
+        {{title}}
     </title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" type="text/css" href="/css/chat.css">
@@ -14,27 +14,27 @@
 <body>
     <nav class="flex">
         <div class="flex">
-            <a class="nav-item" href="#">
+            <a class="nav-item" href="/">
                 <div class="banner flex">
                     <span>ConnectED</span>
                     <img class="thumbnail" src="/assets/images/logo.png" alt="ConnectED logo">
                 </div>
             </a>
-            <a class="nav-item" href="#">About</a>
-            <a class="nav-item" href="#">Courses</a>
+            <a class="nav-item" href="/">Dashboard</a>
+            <a class="nav-item" href="/courses">Courses</a>
         </div>
 
         <div class="flex">
-            <a class="nav-item" href="{{ userPage }}">
+            <a class="nav-item" href="/user/{{userID}}">
                 <div class="flex">
-                    <img class="thumbnail" src="{{ avatarDir }}" alt="avatar">
-                    <span>{{ userName }}</span>
+                    <img class="thumbnail" src="{{avatarDir}}" alt="avatar">
+                    <span>{{userName}}</span>
                 </div>
             </a>
         </div>
     </nav>
 
-    {{{ body }}}
+    {{{body}}}
 
     <div id="footer">
         <hr>

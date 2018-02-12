@@ -1,0 +1,16 @@
+<div class="full flex">
+    <div class="container flex">
+        <!-- Make each course a link -->
+        {{#each courses}}
+        <div class="panel full">
+            <span>{{this.title}}</span>
+            <br>
+            <p>{{this.description}}</p>
+        </div>
+        {{else}}
+        <p class="center">No courses.</p>
+        {{/each}}
+    </div>
+</div>
+
+<script src="/js/chat.js"></script>
