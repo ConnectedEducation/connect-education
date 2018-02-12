@@ -1,9 +1,19 @@
-<div class="container flex">
-    {{#each todos}}
-    <div class="panel">
-            {{this}}
+<div class="wrapper flex">
+    <div class="container flex">
+        {{#each todos}}
+        <div class="panel" style="background-color:{{this.color}};">
+            <span>{{this.title}}</span>
+            <br>
+            <span>{{this.course}}</span>
+            <br>
+            <span>Due: {{this.dueDate}}</span>
+            <hr>
+            <p>{{this.description}}</p>
+        </div>
+        {{else}}
+        <p class="center">Nothing to do.</p>
+        {{/each}}
     </div>
-    {{/each}}
-
 </div>
+
 <script src="/js/chat.js"></script>

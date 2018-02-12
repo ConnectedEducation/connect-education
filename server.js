@@ -17,7 +17,22 @@ let selectedUser = {
     userID: 0,
     userName: "Rusty Shackleford",
     avatarDir: '/user/0/media/test.jpg',
-    todos: ["INFO 4105", "INFO 4200", "INFO 1110"]
+    todos: [{color: "#FF8A80", title: "Assignment 1", course: "INFO 4105", dueDate: "2/12/2018", description: "Lorem ipsum."},
+    {color: "#FFD180", title: "Reading 1", course: "INFO 4200", dueDate: "2/14/2018", description: "Read this please."},
+    {color: "#FFFF8D", title: "Project", course: "INFO 4300", dueDate: "3/20/2018", description: "Big project."},
+    {color: "#CFD8DC", title: "Assignment 1", course: "INFO 4400", dueDate: "4/12/2018", description: "Florem blipsum."}]
+    // add courses
+    // add profile bio stuff
+
+    /*
+    COLORS:
+
+    red: #FF8A80
+    orange: #FFD180
+    yellow: #FFFF8D
+    grey: #CFD8DC
+    */
+
 }
 
 // ONLY USE FOR STORING IN DB
@@ -51,9 +66,30 @@ app.get('/', (req, res) => {
 app.get('/user/:userID/media/:imgFile', (req, res) => {
     // TODO: Do error handling! Make sure the file exists before sending it.
     fs.readFile('.' + req.url, (err, data) => {
-        res.writeHead(200, { "Content-Type": 'image/jpg' });
-        res.write(data, 'binary');
-        res.end();
+        if (err) {
+            // Try to make error visible to user instead
+            console.log(err);
+            // Try to serve null.jpg instead
+        } else {
+            res.writeHead(200, { "Content-Type": 'image/jpg' });
+            res.write(data, 'binary');
+            res.end();
+        }
+    });
+});
+
+app.get('/assets/images/:imgFile', (req, res) => {
+    // TODO: Do error handling! Make sure the file exists before sending it.
+    fs.readFile('.' + req.url, (err, data) => {
+        if (err) {
+            // Try to make error visible to user instead
+            console.log(err);
+            // Try to serve null.jpg instead
+        } else {
+            res.writeHead(200, { "Content-Type": 'image/jpg' });
+            res.write(data, 'binary');
+            res.end();
+        }
     });
 });
 
@@ -64,29 +100,37 @@ app.get('/courses', (req, res) => {
 
 // Specific course
 app.get('/courses/:courseID', (req, res) => {
-    res.send('got course ' + req.params.courseId + '!');
+    res.send("got course " + req.params.courseId + '!');
 });
 
 // User profile
 app.get('/user/:userID', (req, res) => {
-    res.send('got user ' + req.params.userID + '!');
+    res.send("got user " + req.params.userID + '!');
 });
 
 // Respond with CSS
 app.get('/css/:cssfile', (req, res) => {
     fs.readFile('.' + req.url, (err, data) => {
-        res.writeHead(200, { "Content-Type": 'text/css' });
-        res.write(data);
-        res.end();
+        if (err) {
+            console.log(err);
+        } else {
+            res.writeHead(200, { "Content-Type": "text/css" });
+            res.write(data);
+            res.end();
+        }
     });
 });
 
 // Respond with JS
 app.get('/js/:jsfile', (req, res) => {
     fs.readFile('.' + req.url, (err, data) => {
-        res.writeHead(200, { "Content-Type": 'text/js' });
-        res.write(data);
-        res.end()
+        if (err) {
+            console.log(err);
+        } else {
+            res.writeHead(200, { "Content-Type": "text/js" });
+            res.write(data);
+            res.end()
+        }
     });
 });
 
