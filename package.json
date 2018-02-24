@@ -19,6 +19,7 @@
   "homepage": "https://github.com/PJ623/connect-education#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "express-handlebars": "^3.0.0"
+    "express-handlebars": "^3.0.0",
+    "mongodb": "^3.0.3"
   }
 }

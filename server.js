@@ -4,6 +4,11 @@ var express = require("express");
 var app = express();
 const port = 3000;
 
+var MongoClient = require("mongodb").MongoClient;
+
+let serverUrl = "mongodb://localhost:27017/";
+let dbName = "connected";
+
 var fs = require("fs");
 
 // TODO:
@@ -14,30 +19,37 @@ var fs = require("fs");
 
 // Fake user
 let selectedUser = {
-    userID: 0,
-    userName: "Rusty Shackleford",
-    avatarDir: "/user/0/media/test.jpg",
-    todos: [{color: "#FF8A80", title: "Assignment 1", course: "INFO 4105", dueDate: "2/12/2018", description: "Lorem ipsum."},
-    {color: "#FFD180", title: "Reading 1", course: "INFO 4200", dueDate: "2/14/2018", description: "Read this please."},
-    {color: "#FFFF8D", title: "Project", course: "INFO 4300", dueDate: "3/20/2018", description: "Big project."},
-    {color: "#CFD8DC", title: "Assignment 1", course: "INFO 4400", dueDate: "4/12/2018", description: "Florem blipsum."}],
-    courses: [{title: "INFO 4105", description: "Hello!"},
-    {title: "INFO 4200", description: "Hello!"},
-    {title: "INFO 4300", description: "Hello!"},
-    {title: "INFO 4400", description: "Hello!"}],
-    bio: "I'm a really cool guy!"
-    // Store dueDate as Date object
-    // dueDate: new Date("December 17, 1995 03:24:00")
+    userID: null,
+    firstName: "lirstName",
+    lastName: "lastName",
+    avatarDir: "/user/null/media/null.jpg",
+    userName: "NO_USER",
+    todos: [],
+    courses: [],
+    bio: "No user selected."
+};
 
-    /*
-    COLORS:
+MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
+    if (err) {
+        console.log("Error!");
+        db.close();
+    }
 
-    red: #FF8A80
-    orange: #FFD180
-    yellow: #FFFF8D
-    grey: #CFD8DC
-    */
-}
+    console.log("Connected to database!");
+
+    let connectEd = db.db("connected");
+
+    connectEd.collection("users").findOne({
+        userID: 0
+    }, (err, data) => {
+        if(err) {
+            throw err;
+        };
+        console.log(JSON.stringify(data));
+        selectedUser = data;
+        db.close();
+    });
+});
 
 // ONLY USE FOR STORING IN DB
 function computeMediaDir(userID, fileName) {
@@ -61,6 +73,8 @@ app.get("/", (req, res) => {
     // Make it so render multiple todo items
     // Basically make this fetch all todo items (change route?)
 
+    // Make this into a login page?
+
     res.render("index", {
         todos: selectedUser.todos,
         userID: selectedUser.userID,
@@ -80,8 +94,8 @@ app.get("/user/:userID/media/:imgFile", (req, res) => {
         } else {
             res.writeHead(200, { "Content-Type": "image/jpg" });
             res.write(data, "binary");
-            res.end();
         }
+        res.end();
     });
 });
 
@@ -93,10 +107,21 @@ app.get("/assets/images/:imgFile", (req, res) => {
             console.log(err);
             // Try to serve null.jpg instead
         } else {
-            res.writeHead(200, { "Content-Type": "image/jpg" });
+            // JPG default
+            let fileType = "jpg";
+
+            if (req.params.imgFile.match(/.ico/)){
+                fileType = "x-icon"
+            } else {
+                fileType = req.params.imgFile.match(/.w+$/);
+            }
+
+            console.log("Loaded", req.params.imgFile);
+
+            res.writeHead(200, { "Content-Type": "image/" + fileType });
             res.write(data, "binary");
-            res.end();
         }
+        res.end();
     });
 });
 
@@ -137,8 +162,8 @@ app.get("/css/:cssfile", (req, res) => {
         } else {
             res.writeHead(200, { "Content-Type": "text/css" });
             res.write(data);
-            res.end();
         }
+        res.end();
     });
 });
 
@@ -150,8 +175,8 @@ app.get("/js/:jsfile", (req, res) => {
         } else {
             res.writeHead(200, { "Content-Type": "text/js" });
             res.write(data);
-            res.end()
         }
+        res.end();
     });
 });
 
