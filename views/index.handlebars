@@ -14,6 +14,21 @@
         {{else}}
         <p class="center">Nothing to do.</p>
         {{/each}}
+        <div class="panel">
+            <form method="POST" action="/post-todo">
+                <input type="text" name="title" value="Title">
+                <br>
+                <input type="text" name="course" value="Course">
+                <br>
+                <input type="text" name="dueDate" value="DueDate">
+                <br>
+                <textarea name="description">Description</textarea>
+                <br>
+                <input type="text" name="color" value="Color">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
     </div>
 </div>
 

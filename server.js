@@ -12,7 +12,7 @@ let dbName = "connected";
 var fs = require("fs");
 
 // TODO:
-// Connect DB
+// Create and store new TODO item
 // Complete some part of front end
 // Set up static files and stuff
 // Set up Socket.io
@@ -29,6 +29,8 @@ let selectedUser = {
     bio: "No user selected."
 };
 
+// PUT INTO /login or something
+// Change query to extract non-security related stuff--don't extract password or _id
 MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
     if (err) {
         console.log("Error!");
@@ -78,7 +80,7 @@ app.get("/", (req, res) => {
     res.render("index", {
         todos: selectedUser.todos,
         userID: selectedUser.userID,
-        title: "index",
+        title: "Dashboard",
         userName: selectedUser.userName,
         avatarDir: selectedUser.avatarDir
     });
@@ -130,7 +132,7 @@ app.get("/courses", (req, res) => {
     res.render("courses", {
         courses: selectedUser.courses,
         userID: selectedUser.userID,
-        title: "index",
+        title: "courses",
         userName: selectedUser.userName,
         avatarDir: selectedUser.avatarDir
     });
@@ -148,7 +150,7 @@ app.get("/user/:userID", (req, res) => {
     res.render("user", {
         bio: selectedUser.bio,
         userID: selectedUser.userID,
-        title: "index",
+        title: selectedUser.firstName + " " + selectedUser.lastName,
         userName: selectedUser.userName,
         avatarDir: selectedUser.avatarDir
     });
@@ -177,6 +179,40 @@ app.get("/js/:jsfile", (req, res) => {
             res.write(data);
         }
         res.end();
+    });
+});
+
+app.post("/post-todo", (req, res) => {
+    console.log('POST POST POST');
+    console.log(req.body);
+
+
+    // Modularize this stuff
+    MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
+        if (err) {
+            console.log("Error!");
+            db.close();
+        }
+    
+        let connectEd = db.db("connected");
+
+        try {
+            connectEd.collection("users").updateOne({userID: selectedUser.userID}, {$push: {todos: req.body}});
+            selectedUser.todos.push(req.body);
+        } catch (e) {
+            console.log(e);
+        }
+
+        db.close();
+
+        // Reusing... clean code later
+        res.render("index", {
+            todos: selectedUser.todos,
+            userID: selectedUser.userID,
+            title: "Dashboard",
+            userName: selectedUser.userName,
+            avatarDir: selectedUser.avatarDir
+        });
     });
 });
 
