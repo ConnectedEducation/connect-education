@@ -6,14 +6,12 @@ const port = 3000;
 
 var MongoClient = require("mongodb").MongoClient;
 
-let serverUrl = "mongodb://localhost:27017/";
+let serverURL = "mongodb://localhost:27017/";
 let dbName = "connected";
 
 var fs = require("fs");
 
 // TODO:
-// Create and store new TODO item
-// Complete some part of front end
 // Set up static files and stuff
 // Set up Socket.io
 
@@ -31,32 +29,28 @@ let selectedUser = {
 
 // PUT INTO /login or something
 // Change query to extract non-security related stuff--don't extract password or _id
-MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
-    if (err) {
-        console.log("Error!");
-        db.close();
-    }
+function logIn(command) {
+    MongoClient.connect(serverURL.concat(dbName), (err, db) => {
+        if (err) {
+            console.log("Could not connect to the database.");
+            throw err; // Throw custom error object instead?
+        }
 
-    console.log("Connected to database!");
+        console.log("Successfully connected to the database.");
 
-    let connectEd = db.db("connected");
+        db.db(dbName).collection("users").findOne({ userID: 0 }, (err, data) => {
+            if (err) {
+                throw err;
+            };
 
-    connectEd.collection("users").findOne({
-        userID: 0
-    }, (err, data) => {
-        if(err) {
-            throw err;
-        };
-        console.log(JSON.stringify(data));
-        selectedUser = data;
-        db.close();
+            selectedUser = data;
+            db.close();
+        });
     });
-});
-
-// ONLY USE FOR STORING IN DB
-function computeMediaDir(userID, fileName) {
-    return "/user/" + userID + "/media/" + fileName;
 }
+
+// Move somewhere else?
+logIn();
 
 // Set up middleware.
 var bodyparser = require("body-parser");
@@ -71,10 +65,6 @@ app.use(bodyparser.urlencoded({ extended: false }));
 
 // Index
 app.get("/", (req, res) => {
-    // Make fake db full of todo items
-    // Make it so render multiple todo items
-    // Basically make this fetch all todo items (change route?)
-
     // Make this into a login page?
 
     res.render("index", {
@@ -83,47 +73,6 @@ app.get("/", (req, res) => {
         title: "Dashboard",
         userName: selectedUser.userName,
         avatarDir: selectedUser.avatarDir
-    });
-});
-
-app.get("/user/:userID/media/:imgFile", (req, res) => {
-    // TODO: Do error handling! Make sure the file exists before sending it.
-    fs.readFile("." + req.url, (err, data) => {
-        if (err) {
-            // Try to make error visible to user instead
-            console.log(err);
-            // Try to serve null.jpg instead
-        } else {
-            res.writeHead(200, { "Content-Type": "image/jpg" });
-            res.write(data, "binary");
-        }
-        res.end();
-    });
-});
-
-app.get("/assets/images/:imgFile", (req, res) => {
-    // TODO: Do error handling! Make sure the file exists before sending it.
-    fs.readFile("." + req.url, (err, data) => {
-        if (err) {
-            // Try to make error visible to user instead
-            console.log(err);
-            // Try to serve null.jpg instead
-        } else {
-            // JPG default
-            let fileType = "jpg";
-
-            if (req.params.imgFile.match(/.ico/)){
-                fileType = "x-icon"
-            } else {
-                fileType = req.params.imgFile.match(/.w+$/);
-            }
-
-            console.log("Loaded", req.params.imgFile);
-
-            res.writeHead(200, { "Content-Type": "image/" + fileType });
-            res.write(data, "binary");
-        }
-        res.end();
     });
 });
 
@@ -136,7 +85,6 @@ app.get("/courses", (req, res) => {
         userName: selectedUser.userName,
         avatarDir: selectedUser.avatarDir
     });
-    //res.send("Got courses");
 });
 
 // Specific course
@@ -156,48 +104,19 @@ app.get("/user/:userID", (req, res) => {
     });
 });
 
-// Respond with CSS
-app.get("/css/:cssfile", (req, res) => {
-    fs.readFile("." + req.url, (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.writeHead(200, { "Content-Type": "text/css" });
-            res.write(data);
-        }
-        res.end();
-    });
-});
-
-// Respond with JS
-app.get("/js/:jsfile", (req, res) => {
-    fs.readFile("." + req.url, (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.writeHead(200, { "Content-Type": "text/js" });
-            res.write(data);
-        }
-        res.end();
-    });
-});
-
-app.post("/post-todo", (req, res) => {
-    console.log('POST POST POST');
-    console.log(req.body);
-
+// Create a todo
+app.post("/todo", (req, res) => {
+    console.log("Posted todo.");
 
     // Modularize this stuff
-    MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
+    MongoClient.connect(serverURL.concat(dbName), (err, db) => {
         if (err) {
             console.log("Error!");
             db.close();
         }
-    
-        let connectEd = db.db("connected");
 
         try {
-            connectEd.collection("users").updateOne({userID: selectedUser.userID}, {$push: {todos: req.body}});
+            db.db(dbName).collection("users").updateOne({ userID: selectedUser.userID }, { $push: { todos: req.body } });
             selectedUser.todos.push(req.body);
         } catch (e) {
             console.log(e);
@@ -205,15 +124,53 @@ app.post("/post-todo", (req, res) => {
 
         db.close();
 
-        // Reusing... clean code later
-        res.render("index", {
-            todos: selectedUser.todos,
-            userID: selectedUser.userID,
-            title: "Dashboard",
-            userName: selectedUser.userName,
-            avatarDir: selectedUser.avatarDir
-        });
+        res.redirect('/');
     });
+});
+
+// File serving functions and routes:
+
+// General file-fetching function
+function fetchFile(req, res) {
+    // TODO: Do error handling! Make sure the file exists before sending it.
+    fs.readFile("." + req.url, (err, data) => {
+        if (err) {
+            console.log("Error fetching file at '." + req.url + "'.");
+        } else {
+
+            let contentTypeMap = {
+                ".css": "text/css",
+                ".ico": "image/x-icon",
+                ".js": "text/js",
+                ".jpg": "image/jpg",
+                ".png": "image/png"
+            }
+
+            let contentType = contentTypeMap[req.url.match(/\.\w+$/)];
+
+            res.writeHead(200, { "Content-Type": contentType });
+            res.write(data);
+        }
+        res.end();
+    });
+}
+
+// Respond with CSS
+app.get("/css/:cssFile", (req, res) => {
+    fetchFile(req, res);
+});
+
+// Respond with JS
+app.get("/js/:jsFile", (req, res) => {
+    fetchFile(req, res);
+});
+
+app.get("/user/:userID/media/:imgFile", (req, res) => {
+    fetchFile(req, res);
+});
+
+app.get("/assets/images/:imgFile", (req, res) => {
+    fetchFile(req, res);
 });
 
 // See whatever requests are leftover to be handled.

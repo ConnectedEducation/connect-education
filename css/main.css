@@ -39,6 +39,12 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
     border: 1px solid rgba(0,0,0,0.3);
 }
 
+.controls {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
 nav {
     justify-content: space-between;
     background-color: #A41C32;
