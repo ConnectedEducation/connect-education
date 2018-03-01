@@ -2,14 +2,15 @@
     <div class="container flex">
         <!-- Make each todo enlargable! -->
         {{#each todos}}
-        <div class="panel" style="background-color:{{this.color}};" onclick="toggleSize(this)">
+        <div class="panel" style="background-color:{{this.color}};" onclick="toggleModal(this)">
             <span>{{this.title}}</span>
             <br>
             <span>{{this.course}}</span>
             <br>
             <span>Due: {{this.dueDate}}</span>
             <hr>
-            <p>{{this.description}}</p><!-- turn into editable textarea? -->
+            <p>{{this.description}}</p>
+            <!-- turn into editable textarea? -->
             <hr>
             <!-- ADD FUNCTIONALITY (Turn into form?) -->
             <div class="controls">
@@ -38,16 +39,8 @@
         </div>
     </div>
 </div>
+<div id="modal" style="display: none">
+</div>
 
-<script>
-    // Maybe make modal instead.
-    function toggleSize(ele){
-        if(ele.style.width == "100%"){
-            ele.style.width = "auto";
-        } else {
-            ele.style.width = "100%";
-        }
-    }
-</script>
-
+<script src="/js/todo.js"></script>
 <script src="/js/chat.js"></script>

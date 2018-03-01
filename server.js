@@ -28,8 +28,9 @@ let selectedUser = {
 };
 
 // PUT INTO /login or something
-// Change query to extract non-security related stuff--don't extract password or _id
-function logIn(command) {
+// TODO: Change to accept username and password
+// TODO: Change query to extract non-security related stuff--don't extract password or _id
+function logIn(userID) {
     MongoClient.connect(serverURL.concat(dbName), (err, db) => {
         if (err) {
             console.log("Could not connect to the database.");
@@ -38,7 +39,7 @@ function logIn(command) {
 
         console.log("Successfully connected to the database.");
 
-        db.db(dbName).collection("users").findOne({ userID: 0 }, (err, data) => {
+        db.db(dbName).collection("users").findOne({ userID: userID }, (err, data) => {
             if (err) {
                 throw err;
             };
@@ -50,7 +51,7 @@ function logIn(command) {
 }
 
 // Move somewhere else?
-logIn();
+logIn(0);
 
 // Set up middleware.
 var bodyparser = require("body-parser");
