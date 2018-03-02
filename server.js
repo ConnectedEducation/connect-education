@@ -16,6 +16,8 @@ var fs = require("fs");
 // Set up Socket.io
 
 // Fake user
+// Hmm change this. Not sure if server would for multiple users with this set up
+// Use sessions instead?
 let selectedUser = {
     userID: null,
     firstName: "lirstName",
@@ -61,7 +63,7 @@ var hbs = require("express-handlebars");
 app.engine("handlebars", hbs({ extname: "handlebars", defaultLayout: "layout", layoutsDir: __dirname + "/views/layouts/" }));
 app.set("view engine", "handlebars");
 
-// Use body-parser middleware. NOT REALLY USED YET...
+// Set up body parser.
 app.use(bodyparser.urlencoded({ extended: false }));
 
 // Index
