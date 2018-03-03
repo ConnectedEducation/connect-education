@@ -1,23 +1,33 @@
 // ConnectED Server
 
+/*
+    TODO (In no particular order):
+    * Course full pages instead of enlarged view in modal?
+    * Profile full pages
+    * editTodo()
+    * deleteTodo()
+    * Login page
+    * SPA-ify
+    * Set up Socket.io
+*/
+
 var express = require("express");
 var app = express();
 const port = 3000;
-
+var fs = require("fs");
 var MongoClient = require("mongodb").MongoClient;
+var bodyparser = require("body-parser");
+
+app.use(bodyparser.urlencoded({ extended: false }));
+
+var hbs = require("express-handlebars");
+app.engine("handlebars", hbs({ extname: "handlebars", defaultLayout: "layout", layoutsDir: __dirname + "/views/layouts/" }));
+app.set("view engine", "handlebars");
 
 let serverURL = "mongodb://localhost:27017/";
 let dbName = "connected";
 
-var fs = require("fs");
-
-// TODO:
-// Set up static files and stuff
-// Set up Socket.io
-
-// Fake user
-// Hmm change this. Not sure if server would for multiple users with this set up
-// Use sessions instead?
+// Hmm change this. Not sure if server would for multiple users with this set up. Use sessions instead?
 let selectedUser = {
     userID: null,
     firstName: "lirstName",
@@ -29,47 +39,24 @@ let selectedUser = {
     bio: "No user selected."
 };
 
-// PUT INTO /login or something
-// TODO: Change to accept username and password
-// TODO: Change query to extract non-security related stuff--don't extract password or _id
+// TODO: Change to accept username and password and change query to extract non-security related stuff--don't extract password or _id
 function logIn(userID) {
     MongoClient.connect(serverURL.concat(dbName), (err, db) => {
-        if (err) {
-            console.log("Could not connect to the database.");
-            throw err; // Throw custom error object instead?
-        }
-
-        console.log("Successfully connected to the database.");
+        if (err) { throw err; /* Throw custom error object instead? */ }
 
         db.db(dbName).collection("users").findOne({ userID: userID }, (err, data) => {
-            if (err) {
-                throw err;
-            };
-
+            if (err) { throw err; };
             selectedUser = data;
             db.close();
         });
     });
 }
 
-// Move somewhere else?
+// Move somewhere else? Like /login?
 logIn(0);
-
-// Set up middleware.
-var bodyparser = require("body-parser");
-
-// Set the view engine as handlebars.
-var hbs = require("express-handlebars");
-app.engine("handlebars", hbs({ extname: "handlebars", defaultLayout: "layout", layoutsDir: __dirname + "/views/layouts/" }));
-app.set("view engine", "handlebars");
-
-// Set up body parser.
-app.use(bodyparser.urlencoded({ extended: false }));
 
 // Index
 app.get("/", (req, res) => {
-    // Make this into a login page?
-
     res.render("index", {
         todos: selectedUser.todos,
         userID: selectedUser.userID,
@@ -97,7 +84,6 @@ app.get("/courses/:courseID", (req, res) => {
 
 // User profile
 app.get("/user/:userID", (req, res) => {
-    //res.send("got user " + req.params.userID + "!");
     res.render("user", {
         bio: selectedUser.bio,
         userID: selectedUser.userID,
@@ -109,7 +95,6 @@ app.get("/user/:userID", (req, res) => {
 
 // Create a todo
 app.post("/todo", (req, res) => {
-    console.log("Posted todo.");
 
     // Modularize this stuff
     MongoClient.connect(serverURL.concat(dbName), (err, db) => {
@@ -126,12 +111,25 @@ app.post("/todo", (req, res) => {
         }
 
         db.close();
-
         res.redirect('/');
     });
 });
 
-// File serving functions and routes:
+app.get("/css/:cssFile", (req, res) => {
+    fetchFile(req, res);
+});
+
+app.get("/js/:jsFile", (req, res) => {
+    fetchFile(req, res);
+});
+
+app.get("/user/:userID/media/:imgFile", (req, res) => {
+    fetchFile(req, res);
+});
+
+app.get("/assets/images/:imgFile", (req, res) => {
+    fetchFile(req, res);
+});
 
 // General file-fetching function
 function fetchFile(req, res) {
@@ -158,31 +156,12 @@ function fetchFile(req, res) {
     });
 }
 
-// Respond with CSS
-app.get("/css/:cssFile", (req, res) => {
-    fetchFile(req, res);
-});
-
-// Respond with JS
-app.get("/js/:jsFile", (req, res) => {
-    fetchFile(req, res);
-});
-
-app.get("/user/:userID/media/:imgFile", (req, res) => {
-    fetchFile(req, res);
-});
-
-app.get("/assets/images/:imgFile", (req, res) => {
-    fetchFile(req, res);
-});
-
 // See whatever requests are leftover to be handled.
 app.get(/.*/, (req, res) => {
     console.log(req.url);
     res.end();
 });
 
-// Start server
 app.listen(port, function () {
     console.log("Listening on port", port, "... Press CTRL+C to stop.");
 });

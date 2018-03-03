@@ -2,7 +2,7 @@
     <div class="container flex">
         <!-- Make each course a link -->
         {{#each courses}}
-        <div class="panel full">
+        <div class="panel full" onclick="toggleModal(this)">
             <span>{{this.title}}</span>
             <br>
             <p>{{this.description}}</p>
@@ -13,4 +13,8 @@
     </div>
 </div>
 
+<div id="modal" style="display: none">
+</div>
+
 <script src="/js/chat.js"></script>
+<script src="/js/modal.js"></script>

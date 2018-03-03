@@ -1,6 +1,5 @@
 <div class="flex full">
     <div class="container flex">
-        <!-- Make each todo enlargable! -->
         {{#each todos}}
         <div class="panel" style="background-color:{{this.color}};" onclick="toggleModal(this)">
             <span>{{this.title}}</span>
@@ -42,5 +41,5 @@
 <div id="modal" style="display: none">
 </div>
 
-<script src="/js/todo.js"></script>
+<script src="/js/modal.js"></script>
 <script src="/js/chat.js"></script>
