@@ -1,0 +1,23 @@
+<div class="full flex">
+    <div class="container flex">
+        <!-- Make each course a link -->
+        {{#each courses}}
+        <!--<a href="/courses/{{this.title}}" class="course-link full">-->
+            <div class="panel full">
+                <span>{{this.title}}</span>
+                <br>
+                <p>{{this.description}}</p>
+                <!-- Update onclick to pass argument /course/:courseID -->
+                <button onclick="requestView('/courses/{{this.title}}')"></button>
+            </div>
+        <!--</a>-->
+        {{else}}
+        <p class="center">No courses.</p>
+        {{/each}}
+    </div>
+</div>
+
+<div id="modal" style="display: none">
+</div>
+
+<script src="/js/chat.js"></script>

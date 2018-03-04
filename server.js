@@ -8,6 +8,9 @@
     * deleteTodo()
     * Login page
     * SPA-ify
+        * Render layout, send views as html, render that html using handlebars client-side
+        * Check out this vid: https://www.youtube.com/watch?v=4HuAnM6b2d8
+    * fix index.html/handlebars problem
     * Set up Socket.io
 */
 
@@ -60,37 +63,46 @@ app.get("/", (req, res) => {
     res.render("index", {
         todos: selectedUser.todos,
         userID: selectedUser.userID,
-        title: "Dashboard",
+        title: "ConnectED",
         userName: selectedUser.userName,
         avatarDir: selectedUser.avatarDir
     });
 });
 
+app.get("/views/index.html", (req, res) => {
+    serveView(req, res, { todos: selectedUser.todos });
+});
+
+app.get("/views/test.html", (req, res) => {
+    serveView(req, res, { data: "HEYAH" });
+});
+
 // General courses
-app.get("/courses", (req, res) => {
-    res.render("courses", {
-        courses: selectedUser.courses,
-        userID: selectedUser.userID,
-        title: "courses",
-        userName: selectedUser.userName,
-        avatarDir: selectedUser.avatarDir
-    });
+app.get("/views/courses.html", (req, res) => {
+    serveView(req, res, { courses: selectedUser.courses });
 });
 
 // Specific course
 app.get("/courses/:courseID", (req, res) => {
-    res.send("got course " + req.params.courseId + "!");
+    // TODO: Get and send course information.
+    // TODO: Maybe make new course collection? Store courses as objects?
+    serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.html");
 });
 
 // User profile
+// TODO: Switch back to /user/:userID
 app.get("/user/:userID", (req, res) => {
-    res.render("user", {
+    /*res.render("user", {
         bio: selectedUser.bio,
         userID: selectedUser.userID,
         title: selectedUser.firstName + " " + selectedUser.lastName,
         userName: selectedUser.userName,
         avatarDir: selectedUser.avatarDir
-    });
+    });*/
+
+    // Get user using ID from database
+    console.log("User route");
+    serveView(req, res, { bio: selectedUser.bio, userName: selectedUser.userName, avatarDir: selectedUser.avatarDir }, "/views/user.html");
 });
 
 // Create a todo
@@ -112,27 +124,28 @@ app.post("/todo", (req, res) => {
 
         db.close();
         res.redirect('/');
+        //res.end();
     });
 });
 
 app.get("/css/:cssFile", (req, res) => {
-    fetchFile(req, res);
+    serveFile(req, res);
 });
 
 app.get("/js/:jsFile", (req, res) => {
-    fetchFile(req, res);
+    serveFile(req, res);
 });
 
 app.get("/user/:userID/media/:imgFile", (req, res) => {
-    fetchFile(req, res);
+    serveFile(req, res);
 });
 
 app.get("/assets/images/:imgFile", (req, res) => {
-    fetchFile(req, res);
+    serveFile(req, res);
 });
 
 // General file-fetching function
-function fetchFile(req, res) {
+function serveFile(req, res, url /*To override auto url*/) {
     // TODO: Do error handling! Make sure the file exists before sending it.
     fs.readFile("." + req.url, (err, data) => {
         if (err) {
@@ -142,15 +155,48 @@ function fetchFile(req, res) {
             let contentTypeMap = {
                 ".css": "text/css",
                 ".ico": "image/x-icon",
+                //".html": "text/html",
                 ".js": "text/js",
                 ".jpg": "image/jpg",
                 ".png": "image/png"
             }
 
-            let contentType = contentTypeMap[req.url.match(/\.\w+$/)];
+            let contentType = contentTypeMap[req.url.match(/\.\w+$/i)];
 
             res.writeHead(200, { "Content-Type": contentType });
             res.write(data);
+        }
+        res.end();
+    });
+}
+
+function serveView(req, res, data, url) {
+
+    if (!url) {
+        url = req.url;
+    }
+
+    console.log("URL:", url);
+
+    fs.readFile("." + url, (err, result) => {
+        if (err) {
+            console.log("Error fetching file at '." + url + "'.");
+        } else {
+            let contentTypeMap = {
+                ".html": "text/html",
+                //".handlebars": "text/html"
+            }
+
+            let contentType = contentTypeMap[url.match(/\.\w+$/i)];
+
+            let viewData = {
+                view: result.toString(),
+                data: data
+            }
+
+            res.writeHead(200, { "Content-Type": contentType });
+            res.write(JSON.stringify(viewData));
+            console.log("Served view:", url);
         }
         res.end();
     });

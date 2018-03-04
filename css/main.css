@@ -94,3 +94,8 @@ nav > .flex {
     padding: 1em;
     text-align: center;
 }
+
+.course-link {
+    text-decoration: none;
+    color: inherit;
+}
