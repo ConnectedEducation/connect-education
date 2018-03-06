@@ -2,7 +2,6 @@
 
 /*
     TODO (In no particular order):
-    * Course full pages instead of enlarged view in modal?
     * Profile full pages
     * editTodo()
     * deleteTodo()
@@ -10,7 +9,6 @@
     * SPA-ify
         * Render layout, send views as html, render that html using handlebars client-side
         * Check out this vid: https://www.youtube.com/watch?v=4HuAnM6b2d8
-    * fix index.html/handlebars problem
     * Set up Socket.io
 */
 
@@ -60,7 +58,7 @@ logIn(0);
 
 // Index
 app.get("/", (req, res) => {
-    res.render("index", {
+    res.render("login", {
         todos: selectedUser.todos,
         userID: selectedUser.userID,
         title: "ConnectED",
@@ -69,16 +67,12 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/views/index.html", (req, res) => {
+app.get("/views/index.handlebars", (req, res) => {
     serveView(req, res, { todos: selectedUser.todos });
 });
 
-app.get("/views/test.html", (req, res) => {
-    serveView(req, res, { data: "HEYAH" });
-});
-
 // General courses
-app.get("/views/courses.html", (req, res) => {
+app.get("/views/courses.handlebars", (req, res) => {
     serveView(req, res, { courses: selectedUser.courses });
 });
 
@@ -86,23 +80,15 @@ app.get("/views/courses.html", (req, res) => {
 app.get("/courses/:courseID", (req, res) => {
     // TODO: Get and send course information.
     // TODO: Maybe make new course collection? Store courses as objects?
-    serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.html");
+    serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.handlebars");
 });
 
 // User profile
 // TODO: Switch back to /user/:userID
 app.get("/user/:userID", (req, res) => {
-    /*res.render("user", {
-        bio: selectedUser.bio,
-        userID: selectedUser.userID,
-        title: selectedUser.firstName + " " + selectedUser.lastName,
-        userName: selectedUser.userName,
-        avatarDir: selectedUser.avatarDir
-    });*/
-
-    // Get user using ID from database
+    // Get user from database using UserID
     console.log("User route");
-    serveView(req, res, { bio: selectedUser.bio, userName: selectedUser.userName, avatarDir: selectedUser.avatarDir }, "/views/user.html");
+    serveView(req, res, { bio: selectedUser.bio, userName: selectedUser.userName, avatarDir: selectedUser.avatarDir }, "/views/user.handlebars");
 });
 
 // Create a todo
@@ -124,7 +110,6 @@ app.post("/todo", (req, res) => {
 
         db.close();
         res.redirect('/');
-        //res.end();
     });
 });
 
@@ -147,21 +132,25 @@ app.get("/assets/images/:imgFile", (req, res) => {
 // General file-fetching function
 function serveFile(req, res, url /*To override auto url*/) {
     // TODO: Do error handling! Make sure the file exists before sending it.
-    fs.readFile("." + req.url, (err, data) => {
+    if(!url){
+        url = req.url;
+    }
+
+    fs.readFile("." + url, (err, data) => {
         if (err) {
-            console.log("Error fetching file at '." + req.url + "'.");
+            console.log("Error fetching file at '." + url + "'.");
         } else {
 
             let contentTypeMap = {
                 ".css": "text/css",
                 ".ico": "image/x-icon",
-                //".html": "text/html",
+                ".html": "text/html",
                 ".js": "text/js",
                 ".jpg": "image/jpg",
                 ".png": "image/png"
             }
 
-            let contentType = contentTypeMap[req.url.match(/\.\w+$/i)];
+            let contentType = contentTypeMap[url.match(/\.\w+$/i)];
 
             res.writeHead(200, { "Content-Type": contentType });
             res.write(data);
@@ -184,7 +173,7 @@ function serveView(req, res, data, url) {
         } else {
             let contentTypeMap = {
                 ".html": "text/html",
-                //".handlebars": "text/html"
+                ".handlebars": "text/html"
             }
 
             let contentType = contentTypeMap[url.match(/\.\w+$/i)];

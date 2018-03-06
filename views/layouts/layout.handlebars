@@ -11,38 +11,30 @@
     <link rel="stylesheet" type="text/css" href="/css/chat.css">
     <link rel="icon" href="/assets/images/favicon.ico">
     <script src="/js/handlebars-v4.0.11.js"></script>
-    <!-- Render client side instead? -->
 </head>
 
 <body>
     <nav class="flex full">
         <div class="flex">
-            <a class="nav-item" href="/">
-                <div>
-                    <span>ConnectED&nbsp;&nbsp;</span>
-                    <img class="thumbnail" src="/assets/images/logo.png" alt="ConnectED logo">
-                </div>
-            </a>
-            <!-- Recall nav-item attribute -->
-            <button onclick="requestView('/views/index.html')">Dashboard</button>
-            <button onclick="requestView('/views/courses.html')">Courses</button>
-            <button onclick="requestView('/views/test.html')">TEST</button>
+            <div class="nav-item">
+                <span>ConnectED&nbsp;&nbsp;</span>
+                <img class="thumbnail" src="/assets/images/logo.png" alt="ConnectED logo">
+            </div>
+            <div class="nav-item hover" onclick="requestView('/views/index.handlebars')">Dashboard</div>
+            <div class="nav-item hover" onclick="requestView('/views/courses.handlebars')">Courses</div>
         </div>
 
         <div class="flex">
-            <!--<a class="nav-item" href="/user/{{userID}}">-->
-                <div>
-                    <img class="thumbnail" src="{{avatarDir}}" alt="avatar">
-                    <span>&nbsp;&nbsp;{{userName}}</span>
-                    <button onclick="requestView('/user/0')">USER</button>
-                </div>
-            <!--</a>-->
+            <!-- Make requestView call for this more dynamic. Serve different user other than user 0. -->
+            <div class="nav-item hover" onclick="requestView('/user/0')">
+                <img class="thumbnail" src="{{avatarDir}}" alt="avatar">
+                <span>&nbsp;&nbsp;{{userName}}</span>
+            </div>
         </div>
     </nav>
 
     <div id="container">
-        Insert AJAX received data here.
-        {{{body}}}
+        Insert AJAX received data here. {{{body}}}
     </div>
 
 
@@ -51,34 +43,8 @@
         <p>Connect Education 2018</p>
     </div>
 
-    <script>
-        // Request a file using AJAX.
-        function requestView(url) {
-            let xhr = new XMLHttpRequest();
-            xhr.open("GET", url, true);
-            xhr.onload = () => {
-                if (xhr.status == 200) {
-                    console.log(xhr.response);
-                    let responseView = JSON.parse(xhr.response);
-                    let view = responseView.view;
-                    let data = responseView.data;
-
-                    //console.log("View:", view);
-                    //console.log("Data:", data);
-                    renderHandlebars(view, data);
-                }
-            }
-            xhr.send();
-        }
-
-        // Render the view with data.
-        function renderHandlebars(htmlFile, data) {
-            let template = Handlebars.compile(htmlFile);
-            let view = template(data);
-            document.getElementById("container").innerHTML = view;
-        }
-
-    </script>
+    <script src="/js/view-handler.js"></script>
+    <script src="/js/chat.js"></script>
 </body>
 
 </html>
