@@ -6,9 +6,6 @@
     * editTodo()
     * deleteTodo()
     * Login page
-    * SPA-ify
-        * Render layout, send views as html, render that html using handlebars client-side
-        * Check out this vid: https://www.youtube.com/watch?v=4HuAnM6b2d8
     * Set up Socket.io
 */
 
@@ -31,7 +28,7 @@ let dbName = "connected";
 // Hmm change this. Not sure if server would for multiple users with this set up. Use sessions instead?
 let selectedUser = {
     userID: null,
-    firstName: "lirstName",
+    firstName: "firstName",
     lastName: "lastName",
     avatarDir: "/user/null/media/null.jpg",
     userName: "NO_USER",
@@ -47,7 +44,14 @@ function logIn(userID) {
 
         db.db(dbName).collection("users").findOne({ userID: userID }, (err, data) => {
             if (err) { throw err; };
-            selectedUser = data;
+
+            if(data != null){
+                selectedUser = data;
+                console.log("Successfully logged in. UserID:", userID);
+            } else {
+                console.log("No such user found.");
+            }
+
             db.close();
         });
     });
