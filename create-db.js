@@ -5,22 +5,39 @@ let serverUrl = "mongodb://localhost:27017/";
 let dbName = "connected";
 
 
-let users = [{
-    userID: 0,
-    firstName: "Jim",
-    lastName: "Styles",
-    userName: "JimStyles",
-    avatarDir: "/user/0/media/test.jpg",
-    todos: [{ color: "#FF8A80", title: "Assignment 1", course: "INFO 4105", dueDate: "2/12/2018", description: "Lorem ipsum." },
-    { color: "#FFD180", title: "Reading 1", course: "INFO 4200", dueDate: "2/14/2018", description: "Read this please." },
-    { color: "#FFFF8D", title: "Project", course: "INFO 4300", dueDate: "3/20/2018", description: "Big project." },
-    { color: "#CFD8DC", title: "Assignment 1", course: "INFO 4400", dueDate: "4/12/2018", description: "Florem blipsum." }],
-    courses: [{ title: "INFO 4105", description: "Hello!" },
-    { title: "INFO 4200", description: "Hello!" },
-    { title: "INFO 4300", description: "Hello!" },
-    { title: "INFO 4400", description: "Hello!" }],
-    bio: "I'm a really cool guy!"
-}];
+let users = [
+    {
+        userID: 0,
+        firstName: "Jim",
+        lastName: "Styles",
+        userName: "JimStyles",
+        avatarDir: "/user/0/media/test.jpg",
+        bio: "I'm a really cool guy!",
+        todos: [1],
+        courses: [1],
+        contacts: []
+    }
+];
+
+
+let courses = [
+    {
+        CRN: 1,
+        title: "English",
+        description: "description",
+        participants: ["person1", "person2"],
+    }
+];
+
+let todos = [
+    {
+        todoID: 1,
+        CRN: 1,
+        title: "Assignment 1",
+        description: "Actually do the assignment.",
+        dueDate: "4/20/2018" // Convert to actual date...
+    }
+];
 
 MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
     if (err) {
@@ -34,6 +51,16 @@ MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
 
     connectEd.collection("users").insertOne(users[0], (err, result) => {
         console.log("Inserted user:" + JSON.stringify(users[0]));
+        db.close();
+    });
+
+    connectEd.collection("courses").insertOne(courses[0], (err, result) => {
+        console.log("Inserted course:" + JSON.stringify(courses[0]));
+        db.close();
+    });
+
+    connectEd.collection("todos").insertOne(todos[0], (err, result) => {
+        console.log("Inserted todo:" + JSON.stringify(todos[0]));
         db.close();
     });
 });

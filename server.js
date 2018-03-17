@@ -45,7 +45,7 @@ function logIn(userID) {
         db.db(dbName).collection("users").findOne({ userID: userID }, (err, data) => {
             if (err) { throw err; };
 
-            if(data != null){
+            if (data != null) {
                 selectedUser = data;
                 console.log("Successfully logged in. UserID:", userID);
             } else {
@@ -60,6 +60,30 @@ function logIn(userID) {
 // Move somewhere else? Like /login?
 logIn(0);
 
+// dbFind({ userID: 0 }, "users", (data) => {console.log(data)});
+// => [data]
+function dbFind(query, collection, cb) {
+    MongoClient.connect(serverURL.concat(dbName), (err, db) => {
+        if (err) {
+            throw err;
+        }
+
+        try {
+            db.db(dbName).collection(collection).find(query).toArray((err, result) => {
+                if (err) throw err;
+                console.log(result);
+                if (typeof cb === "function") {
+                    cb(result);
+                }
+                db.close();
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+}
+
 // Index
 app.get("/", (req, res) => {
     res.render("login", {
@@ -72,7 +96,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/views/index.handlebars", (req, res) => {
-    serveView(req, res, { todos: selectedUser.todos });
+    dbFind( {todoID: 0}, "todos", (result) => {
+        serveView(req, res, { todos: result });
+    });
+    // Serve view, then ajax call for todos...
 });
 
 // General courses
@@ -84,13 +111,16 @@ app.get("/views/courses.handlebars", (req, res) => {
 app.get("/courses/:courseID", (req, res) => {
     // TODO: Get and send course information.
     // TODO: Maybe make new course collection? Store courses as objects?
+
+    // Serve course description
+    //let course =
     serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.handlebars");
 });
 
 // User profile
 // TODO: Switch back to /user/:userID
 app.get("/user/:userID", (req, res) => {
-    // Get user from database using UserID
+    // TODO: Get user from database using UserID
     console.log("User route");
     serveView(req, res, { bio: selectedUser.bio, userName: selectedUser.userName, avatarDir: selectedUser.avatarDir }, "/views/user.handlebars");
 });
@@ -136,7 +166,7 @@ app.get("/assets/images/:imgFile", (req, res) => {
 // General file-fetching function
 function serveFile(req, res, url /*To override auto url*/) {
     // TODO: Do error handling! Make sure the file exists before sending it.
-    if(!url){
+    if (!url) {
         url = req.url;
     }
 
