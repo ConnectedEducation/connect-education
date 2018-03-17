@@ -1,3 +1,5 @@
+console.log("modal.js loaded");
+
 function toggleModal(ele) {
     let modal = document.getElementById("modal");
 

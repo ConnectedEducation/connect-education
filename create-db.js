@@ -13,7 +13,7 @@ let users = [
         userName: "JimStyles",
         avatarDir: "/user/0/media/test.jpg",
         bio: "I'm a really cool guy!",
-        todos: [1],
+        todos: [1, 3],
         courses: [1],
         contacts: []
     }
@@ -25,7 +25,7 @@ let courses = [
         CRN: 1,
         title: "English",
         description: "description",
-        participants: ["person1", "person2"],
+        participants: [0],
     }
 ];
 
@@ -36,6 +36,20 @@ let todos = [
         title: "Assignment 1",
         description: "Actually do the assignment.",
         dueDate: "4/20/2018" // Convert to actual date...
+    },
+    {
+        todoID: 2,
+        CRN: 1,
+        title: "Assignment 2",
+        description: "Actually do the assignment.",
+        dueDate: "4/20/2018" // Convert to actual date...
+    },
+    {
+        todoID: 3,
+        CRN: 3,
+        title: "Assignment 3",
+        description: "Actually do the dance.",
+        dueDate: "4/20/2020" // Convert to actual date...
     }
 ];
 
@@ -59,7 +73,8 @@ MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
         db.close();
     });
 
-    connectEd.collection("todos").insertOne(todos[0], (err, result) => {
+    // Try insert many or just insert new todo manually
+    connectEd.collection("todos").insertMany(todos, (err, result) => {
         console.log("Inserted todo:" + JSON.stringify(todos[0]));
         db.close();
     });

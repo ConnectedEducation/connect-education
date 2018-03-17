@@ -7,6 +7,7 @@
     * deleteTodo()
     * Login page
     * Set up Socket.io
+    * rework todo post
 */
 
 var express = require("express");
@@ -71,7 +72,7 @@ function dbFind(query, collection, cb) {
         try {
             db.db(dbName).collection(collection).find(query).toArray((err, result) => {
                 if (err) throw err;
-                console.log(result);
+                //console.log(result);
                 if (typeof cb === "function") {
                     cb(result);
                 }
@@ -96,15 +97,23 @@ app.get("/", (req, res) => {
 });
 
 app.get("/views/index.handlebars", (req, res) => {
-    dbFind( {todoID: 0}, "todos", (result) => {
+    dbFind({ todoID: { $in: selectedUser.todos } }, "todos", (result) => {
+        console.log("Got todos from DB:", result);
         serveView(req, res, { todos: result });
     });
-    // Serve view, then ajax call for todos...
 });
+
+// ... Get individual todos using AJAX?
 
 // General courses
 app.get("/views/courses.handlebars", (req, res) => {
-    serveView(req, res, { courses: selectedUser.courses });
+
+    dbFind({ CRN: { $in: selectedUser.courses } }, "courses", (result) => {
+        console.log("Got courses from DB:", result);
+        serveView(req, res, { courses: result });
+    });
+
+    //serveView(req, res, { courses: selectedUser.courses });
 });
 
 // Specific course
@@ -114,14 +123,22 @@ app.get("/courses/:courseID", (req, res) => {
 
     // Serve course description
     //let course =
-    serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.handlebars");
+    dbFind({ CRN: { $in: selectedUser.courses } }, "courses", (result) => {
+        console.log("Got course from DB:", result);
+        serveView(req, res, { courseTitle: result[0].title }, "/views/course.handlebars");
+    });
+
+    //serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.handlebars");
 });
+
+
+// HOW GET _ids
+// console.log() the posted stuff to check for ID, store the _id in a variable
 
 // User profile
 // TODO: Switch back to /user/:userID
 app.get("/user/:userID", (req, res) => {
     // TODO: Get user from database using UserID
-    console.log("User route");
     serveView(req, res, { bio: selectedUser.bio, userName: selectedUser.userName, avatarDir: selectedUser.avatarDir }, "/views/user.handlebars");
 });
 
@@ -136,6 +153,8 @@ app.post("/todo", (req, res) => {
         }
 
         try {
+            // insert todo into todos
+            // add todoID to user's todo array property
             db.db(dbName).collection("users").updateOne({ userID: selectedUser.userID }, { $push: { todos: req.body } });
             selectedUser.todos.push(req.body);
         } catch (e) {
@@ -186,6 +205,7 @@ function serveFile(req, res, url /*To override auto url*/) {
 
             let contentType = contentTypeMap[url.match(/\.\w+$/i)];
 
+            console.log("Served file:", url);
             res.writeHead(200, { "Content-Type": contentType });
             res.write(data);
         }
@@ -198,8 +218,6 @@ function serveView(req, res, data, url) {
     if (!url) {
         url = req.url;
     }
-
-    console.log("URL:", url);
 
     fs.readFile("." + url, (err, result) => {
         if (err) {
