@@ -4,7 +4,7 @@
         <div class="panel" style="background-color: {{this.color}}" onclick="toggleModal(this)">
             <span>{{this.title}}</span>
             <br>
-            <span>{{this.course}}</span>
+            <span>{{this.CRN}}</span>
             <br>
             <span>Due: {{this.dueDate}}</span>
             <hr>
@@ -23,15 +23,15 @@
         {{/each}}
         <div class="panel">
             <form method="POST" action="/todo">
-                <input type="text" name="title" value="Title">
+                <input type="text" name="title" placeholder="Title">
                 <br>
-                <input type="text" name="course" value="Course">
+                <input type="text" name="CRN" placeholder="Course"> <!-- Turn into dropdown -->
                 <br>
-                <input type="text" name="dueDate" value="DueDate">
+                <input type="text" name="dueDate" placeholder="DueDate">
                 <br>
-                <textarea name="description">Description</textarea>
+                <textarea name="description" placeholder="Description"></textarea>
                 <br>
-                <input type="text" name="color" value="Color">
+                <input type="text" name="color" placeholder="grey"> <!-- Turn into color palette -->
                 <br>
                 <input type="submit" value="Submit">
             </form>

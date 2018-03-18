@@ -13,7 +13,29 @@ let users = [
         userName: "JimStyles",
         avatarDir: "/user/0/media/test.jpg",
         bio: "I'm a really cool guy!",
-        todos: [1, 3],
+        todos: [
+            {
+                CRN: 1,
+                title: "Assignment 1",
+                description: "Actually do the assignment.",
+                dueDate: "4/20/2018", // Convert to actual date...
+                color: "blue"
+            },
+            {
+                CRN: 1,
+                title: "Assignment 2",
+                description: "Actually do the assignment.",
+                dueDate: "4/20/2018", // Convert to actual date...
+                color: "yellow"
+            },
+            {
+                CRN: 3,
+                title: "Assignment 3",
+                description: "Actually do the dance.",
+                dueDate: "4/20/2020", // Convert to actual date...
+                color: "pink"
+            }
+        ],
         courses: [1],
         contacts: []
     }
@@ -22,36 +44,40 @@ let users = [
 
 let courses = [
     {
-        CRN: 1,
+        CRN: 1, /* Use _id instead */
         title: "English",
         description: "description",
         participants: [0],
     }
 ];
 
+/*
 let todos = [
     {
         todoID: 1,
         CRN: 1,
         title: "Assignment 1",
         description: "Actually do the assignment.",
-        dueDate: "4/20/2018" // Convert to actual date...
+        dueDate: "4/20/2018", // Convert to actual date...
+        color: "blue"
     },
     {
         todoID: 2,
         CRN: 1,
         title: "Assignment 2",
         description: "Actually do the assignment.",
-        dueDate: "4/20/2018" // Convert to actual date...
+        dueDate: "4/20/2018", // Convert to actual date...
+        color: "yellow"
     },
     {
         todoID: 3,
         CRN: 3,
         title: "Assignment 3",
         description: "Actually do the dance.",
-        dueDate: "4/20/2020" // Convert to actual date...
+        dueDate: "4/20/2020", // Convert to actual date...
+        color: "pink"
     }
-];
+];*/
 
 MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
     if (err) {
@@ -74,8 +100,8 @@ MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
     });
 
     // Try insert many or just insert new todo manually
-    connectEd.collection("todos").insertMany(todos, (err, result) => {
+    /*connectEd.collection("todos").insertMany(todos, (err, result) => {
         console.log("Inserted todo:" + JSON.stringify(todos[0]));
         db.close();
-    });
+    });*/
 });

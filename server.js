@@ -78,7 +78,6 @@ function dbFind(query, collection, cb) {
                 }
                 db.close();
             });
-
         } catch (e) {
             console.log(e);
         }
@@ -91,16 +90,19 @@ app.get("/", (req, res) => {
         todos: selectedUser.todos,
         userID: selectedUser.userID,
         title: "ConnectED",
-        userName: selectedUser.userName,
+        firstName: selectedUser.firstName,
+        lastName: selectedUser.lastName,
         avatarDir: selectedUser.avatarDir
     });
 });
 
 app.get("/views/index.handlebars", (req, res) => {
-    dbFind({ todoID: { $in: selectedUser.todos } }, "todos", (result) => {
+    /*dbFind({ todoID: { $in: selectedUser.todos } }, "todos", (result) => {
         console.log("Got todos from DB:", result);
         serveView(req, res, { todos: result });
-    });
+    });*/
+
+    serveView(req, res, { todos: selectedUser.todos });
 });
 
 // ... Get individual todos using AJAX?
@@ -125,7 +127,7 @@ app.get("/courses/:courseID", (req, res) => {
     //let course =
     dbFind({ CRN: { $in: selectedUser.courses } }, "courses", (result) => {
         console.log("Got course from DB:", result);
-        serveView(req, res, { courseTitle: result[0].title }, "/views/course.handlebars");
+        serveView(req, res, { courseTitle: result[0].title, description: result[0].description }, "/views/course.handlebars");
     });
 
     //serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.handlebars");
@@ -138,8 +140,15 @@ app.get("/courses/:courseID", (req, res) => {
 // User profile
 // TODO: Switch back to /user/:userID
 app.get("/user/:userID", (req, res) => {
-    // TODO: Get user from database using UserID
-    serveView(req, res, { bio: selectedUser.bio, userName: selectedUser.userName, avatarDir: selectedUser.avatarDir }, "/views/user.handlebars");
+    //console.log("Serving user profile. ID:", req.params.userID);
+
+    console.log("req.params.userID:", req.params.userID);
+
+    dbFind({ userID: Number(req.params.userID) }, "users", (result) => {
+        console.log("Serving user profile. ID:", req.params.userID);
+        console.log("result:", result);
+        serveView(req, res, { bio: result[0].bio, firstName: result[0].firstName, lastName: result[0].lastName, avatarDir: result[0].avatarDir }, "/views/user.handlebars")
+    });
 });
 
 // Create a todo
@@ -153,8 +162,6 @@ app.post("/todo", (req, res) => {
         }
 
         try {
-            // insert todo into todos
-            // add todoID to user's todo array property
             db.db(dbName).collection("users").updateOne({ userID: selectedUser.userID }, { $push: { todos: req.body } });
             selectedUser.todos.push(req.body);
         } catch (e) {
@@ -164,6 +171,14 @@ app.post("/todo", (req, res) => {
         db.close();
         res.redirect('/');
     });
+});
+
+app.delete("/todo/:titleAndCourse", (req, res) => {
+
+});
+
+app.put("/todo/:titleAndCourse", (req, res) => {
+
 });
 
 app.get("/css/:cssFile", (req, res) => {
@@ -214,7 +229,6 @@ function serveFile(req, res, url /*To override auto url*/) {
 }
 
 function serveView(req, res, data, url) {
-
     if (!url) {
         url = req.url;
     }
