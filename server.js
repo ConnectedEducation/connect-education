@@ -96,23 +96,23 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/views/index.handlebars", (req, res) => {
+app.get(/*"/views/index.handlebars"*/"/index", (req, res) => {
     /*dbFind({ todoID: { $in: selectedUser.todos } }, "todos", (result) => {
         console.log("Got todos from DB:", result);
         serveView(req, res, { todos: result });
     });*/
 
-    serveView(req, res, { todos: selectedUser.todos });
+    serveView(req, res, { todos: selectedUser.todos }, "/views/index.handlebars");
 });
 
 // ... Get individual todos using AJAX?
 
 // General courses
-app.get("/views/courses.handlebars", (req, res) => {
+app.get(/*"/views/courses.handlebars"*/"/courses", (req, res) => {
 
     dbFind({ CRN: { $in: selectedUser.courses } }, "courses", (result) => {
         console.log("Got courses from DB:", result);
-        serveView(req, res, { courses: result });
+        serveView(req, res, { courses: result }, "/views/courses.handlebars");
     });
 
     //serveView(req, res, { courses: selectedUser.courses });
