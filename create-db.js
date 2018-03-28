@@ -19,21 +19,24 @@ let users = [
                 title: "Assignment 1",
                 description: "Actually do the assignment.",
                 dueDate: "4/20/2018", // Convert to actual date...
-                color: "blue"
+                color: "blue",
+                submissions: []
             },
             {
-                CRN: 1,
+                CRN: 2,
                 title: "Assignment 2",
                 description: "Actually do the assignment.",
                 dueDate: "4/20/2018", // Convert to actual date...
-                color: "yellow"
+                color: "yellow",
+                submissions: []
             },
             {
                 CRN: 3,
                 title: "Assignment 3",
                 description: "Actually do the dance.",
                 dueDate: "4/20/2020", // Convert to actual date...
-                color: "pink"
+                color: "pink",
+                submissions: []
             }
         ],
         courses: [1],
@@ -48,6 +51,12 @@ let courses = [
         title: "English",
         description: "description",
         participants: [0],
+    },
+    {
+        CRN: 2,
+        title: "Spanish",
+        description: "Esto es el fin, Grande Padre!",
+        participants: [0]
     }
 ];
 

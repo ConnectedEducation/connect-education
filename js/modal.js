@@ -1,6 +1,9 @@
 console.log("modal.js loaded");
 
 function toggleModal(ele) {
+    
+    console.log("ELE:", ele);
+
     let modal = document.getElementById("modal");
 
     // Make modal disappear on click.
