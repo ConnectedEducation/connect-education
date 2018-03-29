@@ -173,6 +173,31 @@ app.post("/todo", (req, res) => {
     });
 });
 
+// Use CRN and title for identification?
+/*"/todo/:todoID/:submission"*/
+app.put("/submission", (req, res) => {
+    console.log("Request received.");
+    // Save the submission in file system
+    // Edit todo object to link to submission URL
+
+    let result = "";
+    let file = {};
+
+    req.on("data", (data) => {
+        result += data;
+    });
+
+    req.on("end", () => {
+        file = JSON.parse(result).file;
+        console.log("RESULT:", result);
+        console.log("RESULT FILE:", file);
+        console.log("RESULT TEST:", JSON.parse(result).test);
+    });
+
+    res.writeHead("200");
+    res.end();
+});
+
 app.delete("/todo/:titleAndCourse", (req, res) => {
 
 });
