@@ -191,12 +191,25 @@ app.put("/submission", (req, res) => {
         //file = JSON.parse(result).file;
 
         console.log(JSON.parse(result).name);
+        result = JSON.parse(result);
 
         // Save file to computer using fs
+        fs.writeFile("./submissions" + "/" + result.name, result.file, (err) => {
+            if (err) {
+                console.log("Error writing file.");
+                throw err;
+            }
+
+            console.log("Successfully uploaded file:", result.name);
+            // Add to mongodb
+
+            res.writeHead("200");
+            res.end();
+        });
     });
 
-    res.writeHead("200");
-    res.end();
+    /*res.writeHead("200");
+    res.end();*/
 });
 
 app.delete("/todo/:titleAndCourse", (req, res) => {
