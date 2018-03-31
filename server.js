@@ -188,10 +188,11 @@ app.put("/submission", (req, res) => {
     });
 
     req.on("end", () => {
-        file = JSON.parse(result).file;
-        console.log("RESULT:", result);
-        console.log("RESULT FILE:", file);
-        console.log("RESULT TEST:", JSON.parse(result).test);
+        //file = JSON.parse(result).file;
+
+        console.log(JSON.parse(result).name);
+
+        // Save file to computer using fs
     });
 
     res.writeHead("200");
