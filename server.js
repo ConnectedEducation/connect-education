@@ -201,10 +201,34 @@ app.put("/submission", (req, res) => {
             }
 
             console.log("Successfully uploaded file:", result.name);
+
+            // Store name of submission in user's todo object
+            MongoClient.connect(serverURL.concat(dbName), (err, db) => {
+                if (err) {
+                    console.log("Error!");
+                    db.close();
+                }
+
+                try {
+                    console.log("Trying to update user's todo...");
+                    db.db(dbName).collection("users").updateOne(
+                        { userID: selectedUser.userID, "todos.CRN": 1 }, // Make CRN dynamic, create primary key of sorts
+                        { $push: { "todos.$.submissions": result.name } }
+                    );
+                } catch (e) {
+                    console.log(e);
+                }
+
+                db.close();
+
+                res.writeHead("200");
+                res.end();
+            });
+
             // Add to mongodb
 
-            res.writeHead("200");
-            res.end();
+            /*res.writeHead("200");
+            res.end();*/
         });
     });
 
