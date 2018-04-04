@@ -53,6 +53,13 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.5);
+    z-index: 0;
+}
+
+#modal-closer {
+    position: fixed;
+    top: 1em;
+    right: 1em;
 }
 
 nav {

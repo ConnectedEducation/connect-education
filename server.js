@@ -2,12 +2,10 @@
 
 /*
     TODO (In no particular order):
-    * Profile full pages
     * editTodo()
     * deleteTodo()
     * Login page
     * Set up Socket.io
-    * rework todo post
 */
 
 var express = require("express");
@@ -96,19 +94,16 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get(/*"/views/index.handlebars"*/"/index", (req, res) => {
-    /*dbFind({ todoID: { $in: selectedUser.todos } }, "todos", (result) => {
-        console.log("Got todos from DB:", result);
-        serveView(req, res, { todos: result });
-    });*/
-
-    serveView(req, res, { todos: selectedUser.todos }, "/views/index.handlebars");
+// Serve dashboard
+app.get("/index", (req, res) => {
+    dbFind({ userID: selectedUser.userID }, "users", (result) => {
+        console.log("/index dbFind result:", result[0].todos);
+        serveView(req, res, { todos: result[0].todos }, "/views/index.handlebars");
+    });
 });
 
-// ... Get individual todos using AJAX?
-
 // General courses
-app.get(/*"/views/courses.handlebars"*/"/courses", (req, res) => {
+app.get("/courses", (req, res) => {
 
     dbFind({ CRN: { $in: selectedUser.courses } }, "courses", (result) => {
         console.log("Got courses from DB:", result);
@@ -162,6 +157,11 @@ app.post("/todo", (req, res) => {
         }
 
         try {
+
+            let todo = req.body;
+            todo._id = todo.CRN.toString() + todo.title.replace(" ", "");
+            console.log(todo);
+
             db.db(dbName).collection("users").updateOne({ userID: selectedUser.userID }, { $push: { todos: req.body } });
             selectedUser.todos.push(req.body);
         } catch (e) {
@@ -173,7 +173,6 @@ app.post("/todo", (req, res) => {
     });
 });
 
-// Use CRN and title for identification?
 /*"/todo/:todoID/:submission"*/
 app.put("/submission", (req, res) => {
     console.log("Request received.");
@@ -212,7 +211,7 @@ app.put("/submission", (req, res) => {
                 try {
                     console.log("Trying to update user's todo...");
                     db.db(dbName).collection("users").updateOne(
-                        { userID: selectedUser.userID, "todos.CRN": 1 }, // Make CRN dynamic, create primary key of sorts
+                        { userID: selectedUser.userID, "todos._id": result._id },
                         { $push: { "todos.$.submissions": result.name } }
                     );
                 } catch (e) {
@@ -224,16 +223,8 @@ app.put("/submission", (req, res) => {
                 res.writeHead("200");
                 res.end();
             });
-
-            // Add to mongodb
-
-            /*res.writeHead("200");
-            res.end();*/
         });
     });
-
-    /*res.writeHead("200");
-    res.end();*/
 });
 
 app.delete("/todo/:titleAndCourse", (req, res) => {

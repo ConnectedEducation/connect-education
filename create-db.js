@@ -44,6 +44,11 @@ let users = [
     }
 ];
 
+for(let i = 0; i < users[0].todos.length; i++){
+    let todo = users[0].todos[i];
+    todo._id = todo.CRN.toString() + todo.title.replace(" ", "");
+}
+
 
 let courses = [
     {
@@ -52,6 +57,7 @@ let courses = [
         description: "description",
         participants: [0],
     },
+    // Don't forget to insert second course!
     {
         CRN: 2,
         title: "Spanish",
@@ -59,34 +65,6 @@ let courses = [
         participants: [0]
     }
 ];
-
-/*
-let todos = [
-    {
-        todoID: 1,
-        CRN: 1,
-        title: "Assignment 1",
-        description: "Actually do the assignment.",
-        dueDate: "4/20/2018", // Convert to actual date...
-        color: "blue"
-    },
-    {
-        todoID: 2,
-        CRN: 1,
-        title: "Assignment 2",
-        description: "Actually do the assignment.",
-        dueDate: "4/20/2018", // Convert to actual date...
-        color: "yellow"
-    },
-    {
-        todoID: 3,
-        CRN: 3,
-        title: "Assignment 3",
-        description: "Actually do the dance.",
-        dueDate: "4/20/2020", // Convert to actual date...
-        color: "pink"
-    }
-];*/
 
 MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
     if (err) {
@@ -107,10 +85,4 @@ MongoClient.connect(serverUrl.concat(dbName), (err, db) => {
         console.log("Inserted course:" + JSON.stringify(courses[0]));
         db.close();
     });
-
-    // Try insert many or just insert new todo manually
-    /*connectEd.collection("todos").insertMany(todos, (err, result) => {
-        console.log("Inserted todo:" + JSON.stringify(todos[0]));
-        db.close();
-    });*/
 });

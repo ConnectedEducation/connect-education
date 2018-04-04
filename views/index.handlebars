@@ -1,17 +1,24 @@
 <div class="flex full">
     <div class="container flex">
         {{#each todos}}
-        <div class="panel" style="background-color: {{this.color}}" onclick="toggleModal(this)">
-            <span>{{this.title}}</span>
-            <br>
-            <span>{{this.CRN}}</span>
-            <br>
-            <span>Due: {{this.dueDate}}</span>
+        <div class="panel" style="background-color: {{this.color}}" data-_id="{{this._id}}">
+            <div class="clickable" onclick="toggleModal(this.parentNode)">
+                <span>{{this.title}}</span>
+                <br>
+                <span>{{this.CRN}}</span>
+                <br>
+                <span>Due: {{this.dueDate}}</span>
+                <hr>
+                <p>{{this.description}}</p>
+                <!-- turn into editable textarea? -->
+                <!-- ADD FUNCTIONALITY (Turn into form?) -->
+            </div>
             <hr>
-            <p>{{this.description}}</p>
-            <!-- turn into editable textarea? -->
-            <hr>
-            <!-- ADD FUNCTIONALITY (Turn into form?) -->
+            <div class="submissions">
+                {{#each this.submissions}}
+                <span>{{this}}</span><br>
+                {{/each}}
+            </div>
             <div class="controls">
                 <a href="/courses">Edit</a>
                 <a href="/courses">Done</a>
@@ -32,13 +39,15 @@
             <form method="POST" action="/todo">
                 <input type="text" name="title" placeholder="Title">
                 <br>
-                <input type="text" name="CRN" placeholder="Course"> <!-- Turn into dropdown -->
+                <input type="text" name="CRN" placeholder="Course">
+                <!-- Turn into dropdown -->
                 <br>
                 <input type="text" name="dueDate" placeholder="DueDate">
                 <br>
                 <textarea name="description" placeholder="Description"></textarea>
                 <br>
-                <input type="text" name="color" placeholder="grey"> <!-- Turn into color palette -->
+                <input type="text" name="color" placeholder="grey">
+                <!-- Turn into color palette -->
                 <br>
                 <input type="submit" value="Submit">
             </form>
@@ -46,6 +55,8 @@
     </div>
 </div>
 <div id="modal" style="display: none">
+    <div id="modal-content"></div>
+    <button id="modal-closer">X</button>
 </div>
 
 <!--<script src="/js/modal.js"></script>-->
