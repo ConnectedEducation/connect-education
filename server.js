@@ -339,6 +339,18 @@ io.on('connection', (socket) => {
     });
 });
 
+io.on('connection', (socket) => {
+    socket.on("typing", () => {
+        socket.broadcast.emit("typing");
+    });
+});
+
+io.on('connection', (socket) => {
+    socket.on("not typing", () => {
+        socket.broadcast.emit("not typing");
+    });
+});
+
 http.listen(port, function () {
     console.log("Listening on port", port, "... Press CTRL+C to stop.");
 });

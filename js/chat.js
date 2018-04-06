@@ -1,5 +1,7 @@
 // I guess this is why React is a thing
 
+var socket = io();
+
 let chatsContainer = document.createElement('DIV');
 chatsContainer.id = "chats-container";
 document.body.appendChild(chatsContainer);
@@ -43,6 +45,16 @@ function Chat(/*chatID*/ name) {
     chatButton.className = 'button btn';
     chatButton.innerHTML = 'Send';
 
+    chatContent.style.position = "relative";
+
+    let userIsTyping = document.createElement('DIV');
+    userIsTyping.id = "user-is-typing";
+    userIsTyping.style.position = "absolute";
+    userIsTyping.style.bottom = "0.5em";
+    userIsTyping.style.right = "0.5em";
+    userIsTyping.textContent = "User is typing...";
+    userIsTyping.style.display = "none";
+
     // Build the chat box
     //document.body.appendChild(chatContainer);
     chatsContainer.appendChild(chatContainer);
@@ -51,6 +63,7 @@ function Chat(/*chatID*/ name) {
     chatTop.appendChild(chatControlsTop);
     chatControlsTop.appendChild(sizeToggleButton);
     chatContainer.appendChild(chatCollapsible);
+    chatContent.appendChild(userIsTyping);
     chatCollapsible.appendChild(chatContent);
     chatCollapsible.appendChild(chatControlsBottom);
     chatControlsBottom.appendChild(chatInput);
@@ -75,7 +88,14 @@ function Chat(/*chatID*/ name) {
             this.style.overflow = 'auto';
         }
         if (event.keyCode == 13) {
-            sendMessage();
+            //sendMessage();
+        } else {
+            if (chatInput.value != "") {
+                console.log("User is typing.");
+                socket.emit("typing");
+            } else {
+                socket.emit("not typing");
+            }
         }
     }
 
@@ -97,26 +117,25 @@ function Chat(/*chatID*/ name) {
         load from messageHistory
     }
     */
-
-    /*
-    var socket = io();
     document.addEventListener("DOMContentLoaded", (event) => {
-        document.getElementById("submit-button").addEventListener("click", submitMessage, false);
-        function submitMessage() {
-            socket.emit("chat message", document.getElementById("m").value);
-            document.getElementById("m").value = "";
-        }
-    });*/
 
-    var socket = io();
-    document.addEventListener("DOMContentLoaded", (event) => {
-        //chatButton.addEventListener("click", sendMessage, false);
+        let isTyping = false;
 
-        socket.on('chat message', (msg) => {
+        socket.on("chat message", (msg) => {
             let messageContainer = document.createElement('DIV');
             messageContainer.textContent = msg;
             chatContent.appendChild(messageContainer);
             chatContent.appendChild(document.createElement("BR"));
+            //userIsTyping.style.display = "none";
+        });
+
+        socket.on("typing", () => {
+            console.log("TYPING EMITTED WOOOW");
+            userIsTyping.style.display = "block";
+        });
+
+        socket.on("not typing", () => {
+            userIsTyping.style.display = "none";
         });
     });
 
@@ -129,14 +148,9 @@ function Chat(/*chatID*/ name) {
         let messageContainer = document.createElement('DIV');
 
         if (message != '' && !message.match(/^\s+$/)) {
-
             socket.emit("chat message", message);
+            socket.emit("not typing");
             chatInput.value = "";
-
-            /*messageContainer.textContent = message;
-            chatContent.appendChild(messageContainer);
-            chatContent.appendChild(document.createElement('BR'));*/
-
         }
 
         chatContent.scrollTop = chatContent.scrollHeight;
@@ -167,7 +181,7 @@ function Chat(/*chatID*/ name) {
 
     chatButton.addEventListener("click", sendMessage, false);
     sizeToggleButton.addEventListener("click", toggleSize, false);
-
+    //chatInput.addEventListener("keyup", detectTyping, false);
     //toggleSize(); // start minimized?
 }
 
