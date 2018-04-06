@@ -98,17 +98,45 @@ function Chat(/*chatID*/ name) {
     }
     */
 
-    let sendMessage = function () {
+    /*
+    var socket = io();
+    document.addEventListener("DOMContentLoaded", (event) => {
+        document.getElementById("submit-button").addEventListener("click", submitMessage, false);
+        function submitMessage() {
+            socket.emit("chat message", document.getElementById("m").value);
+            document.getElementById("m").value = "";
+        }
+    });*/
+
+    var socket = io();
+    document.addEventListener("DOMContentLoaded", (event) => {
+        //chatButton.addEventListener("click", sendMessage, false);
+
+        socket.on('chat message', (msg) => {
+            let messageContainer = document.createElement('DIV');
+            messageContainer.textContent = msg;
+            chatContent.appendChild(messageContainer);
+            chatContent.appendChild(document.createElement("BR"));
+        });
+    });
+
+    function sendMessage() {
         let message = chatInput.value;
 
+        console.log("clicked send button!");
         messageHistory.push(message);
 
         let messageContainer = document.createElement('DIV');
 
         if (message != '' && !message.match(/^\s+$/)) {
-            messageContainer.textContent = message;
+
+            socket.emit("chat message", message);
+            chatInput.value = "";
+
+            /*messageContainer.textContent = message;
             chatContent.appendChild(messageContainer);
-            chatContent.appendChild(document.createElement('BR'));
+            chatContent.appendChild(document.createElement('BR'));*/
+
         }
 
         chatContent.scrollTop = chatContent.scrollHeight;

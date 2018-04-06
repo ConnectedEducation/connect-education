@@ -16,7 +16,7 @@
             <hr>
             <div class="submissions">
                 {{#each this.submissions}}
-                <span>{{this}}</span><br>
+                <a href="/submissions/{{this}}" download="{{this}}">{{this}}</a><br>
                 {{/each}}
             </div>
             <div class="controls">

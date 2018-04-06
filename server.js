@@ -10,6 +10,9 @@
 
 var express = require("express");
 var app = express();
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
+
 const port = 3000;
 var fs = require("fs");
 var MongoClient = require("mongodb").MongoClient;
@@ -127,7 +130,6 @@ app.get("/courses/:courseID", (req, res) => {
 
     //serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.handlebars");
 });
-
 
 // HOW GET _ids
 // console.log() the posted stuff to check for ID, store the _id in a variable
@@ -251,6 +253,10 @@ app.get("/assets/images/:imgFile", (req, res) => {
     serveFile(req, res);
 });
 
+app.get("/submissions/:fileName", (req, res) => {
+    serveFile(req, res);
+});
+
 // General file-fetching function
 function serveFile(req, res, url /*To override auto url*/) {
     // TODO: Do error handling! Make sure the file exists before sending it.
@@ -317,6 +323,22 @@ app.get(/.*/, (req, res) => {
     res.end();
 });
 
-app.listen(port, function () {
+// Socket.io stuff
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
+
+io.on('connection', (socket) => {
+    socket.on('chat message', (msg) => {
+        console.log('message: ' + msg);
+        io.emit('chat message', msg);
+    });
+});
+
+http.listen(port, function () {
     console.log("Listening on port", port, "... Press CTRL+C to stop.");
 });

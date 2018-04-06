@@ -45,6 +45,7 @@ function submitFile(ele, item) {
         }
         console.log(req);
 
+        
         reader.onload = (event) => {
             console.log("event.target.result:", event.target.result);
             req.file = event.target.result;
@@ -55,18 +56,42 @@ function submitFile(ele, item) {
                 if (xhr.status == 200) {
                     console.log("success!");
                     console.log("FileRead:", req.file);
-                    let submission = document.createElement("SPAN");
+                    let submission = document.createElement("A");
                     submission.innerText = req.name;
+                    submission.href = "/submissions/" + req.name;
+                    submission.download = req.name;
                     ele.getElementsByClassName("submissions")[0].appendChild(submission);
                 }
             }
 
-            // Send JSON file containing information about TODO
-            // JSON file should contain file
             xhr.send(JSON.stringify(req));
         }
+        
+        reader.readAsText(file);
 
-        reader.readAsDataURL(file);
+
+        // New
+
+        /*let formData = new FormData();
+        formData.append("fileName", file.name);
+        formData.append("todoID", ele.dataset._id);
+        formData.append("file", file);
+        console.log(formData);
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("PUT", "/submission2");
+        xhr.onload = () => {
+            if (xhr.status == 200) {
+                console.log("success!");
+                console.log("FileRead:", file.name);
+                let submission = document.createElement("A");
+                submission.innerText = file.name;
+                submission.href = "/submissions/" + file.name;
+                submission.download = file.name;
+                ele.getElementsByClassName("submissions")[0].appendChild(submission);
+            }
+        }
+        xhr.send(formData);*/
 
         // Send info about todo to inform the server-side query
     } else {
