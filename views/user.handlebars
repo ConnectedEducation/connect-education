@@ -7,7 +7,20 @@
             <hr>
             <p>{{bio}}</p>
             <hr>
-            <!-- COURSES -->
+            <span>Courses</span>
+            <br>
+            <ul>
+                {{#each courses}}
+                <li><a onclick="requestView('/courses/{{this.CRN}}')">{{this.title}}</a></li>
+                {{/each}}
+            </ul>
+            <span>Contacts</span>
+            <br>
+            <ul>
+                {{#each contacts}}
+                <li><a onclick="requestView('/user/{{this.userID}}')">{{this.firstName}} {{this.lastName}}</a></li>
+                {{/each}}
+            </ul>
         </div>
     </div>
 </div>

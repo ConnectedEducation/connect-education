@@ -107,13 +107,10 @@ app.get("/index", (req, res) => {
 
 // General courses
 app.get("/courses", (req, res) => {
-
-    dbFind({ CRN: { $in: selectedUser.courses } }, "courses", (result) => {
-        console.log("Got courses from DB:", result);
-        serveView(req, res, { courses: result }, "/views/courses.handlebars");
+    dbFind({ userID: selectedUser.userID }, "users", (result) => {
+        console.log("/index dbFind result:", result[0].courses);
+        serveView(req, res, { courses: result[0].courses }, "/views/courses.handlebars");
     });
-
-    //serveView(req, res, { courses: selectedUser.courses });
 });
 
 // Specific course
@@ -123,10 +120,13 @@ app.get("/courses/:courseID", (req, res) => {
 
     // Serve course description
     //let course =
-    dbFind({ CRN: { $in: selectedUser.courses } }, "courses", (result) => {
+    console.log(req.params.courseID);
+    dbFind({ CRN: Number(req.params.courseID) }, "courses", (result) => {
         console.log("Got course from DB:", result);
-        serveView(req, res, { courseTitle: result[0].title, description: result[0].description }, "/views/course.handlebars");
+        serveView(req, res, { courseTitle: result[0].title, description: result[0].description, participants: result[0].participants }, "/views/course.handlebars");
     });
+    //res.writeHead(200);
+    //res.end();
 
     //serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.handlebars");
 });
@@ -144,7 +144,7 @@ app.get("/user/:userID", (req, res) => {
     dbFind({ userID: Number(req.params.userID) }, "users", (result) => {
         console.log("Serving user profile. ID:", req.params.userID);
         console.log("result:", result);
-        serveView(req, res, { bio: result[0].bio, firstName: result[0].firstName, lastName: result[0].lastName, avatarDir: result[0].avatarDir }, "/views/user.handlebars")
+        serveView(req, res, { bio: result[0].bio, firstName: result[0].firstName, lastName: result[0].lastName, avatarDir: result[0].avatarDir, courses: result[0].courses, contacts: result[0].contacts }, "/views/user.handlebars")
     });
 });
 
@@ -275,7 +275,8 @@ function serveFile(req, res, url /*To override auto url*/) {
                 ".html": "text/html",
                 ".js": "text/js",
                 ".jpg": "image/jpg",
-                ".png": "image/png"
+                ".png": "image/png",
+                ".txt": "text/plain"
             }
 
             let contentType = contentTypeMap[url.match(/\.\w+$/i)];

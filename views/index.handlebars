@@ -5,7 +5,7 @@
             <div class="clickable" onclick="toggleModal(this.parentNode)">
                 <span>{{this.title}}</span>
                 <br>
-                <span>{{this.CRN}}</span>
+                <a onclick="requestView('/courses/{{this.CRN.CRN}}')">{{this.CRN.title}}</a>
                 <br>
                 <span>Due: {{this.dueDate}}</span>
                 <hr>

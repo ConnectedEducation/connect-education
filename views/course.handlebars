@@ -6,8 +6,15 @@
             {{ description }}
         </p>
         <hr>
-        <div>
+        <span>Participants</span>
+        <br>
+        <ul>
             <!-- loop over participants array and render participants here -->
-        </div>
+            {{#each participants}}
+            <li>
+                <a onclick="requestView('/user/{{this.userID}}')">{{this.firstName}} {{this.lastName}}</a>
+            </li>
+            {{/each}}
+        </ul>
     </div>
 </div>
