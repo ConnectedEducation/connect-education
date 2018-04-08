@@ -8,9 +8,15 @@ html { height: 100% }
   border: 1px solid #42464b;
   border-radius: 6px;
   height: 180px;
-  margin: 10% auto 0;
   width: 575px;
+  /* margin:  11% auto 11%; */
+  /* margin: 20% auto 0; */
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
 }
+
 .login h1 {
   border-bottom: 1px solid #a6abaf;
   border-radius: 6px 6px 0 0;
@@ -104,10 +110,14 @@ input[type="submit"] {
 }
 
 body {
-    background-image: url("images/loginbackground.png");
-    background-repeat: repeat-x;
+    background-image: url("/assets/images/logologin.png");
+    /* background-repeat: repeat-x; */
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: 50% 50%;
+    background-attachment: fixed;
+    background-size: contain;
+
+    
 }
 
 nav, #chats-container, #footer  {
