@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PJ623/connect-education.git"
+    "url": "git+https://github.com/ConnectedEducation/connect-education.git"
   },
-  "author": "PJ623",
+  "author": "ConnectedEducation",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PJ623/connect-education/issues"
+    "url": "https://github.com/ConnectedEducation/connect-education/issues"
   },
-  "homepage": "https://github.com/PJ623/connect-education#readme",
+  "homepage": "https://github.com/ConnectedEducation/connect-education#readme",
   "dependencies": {
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
