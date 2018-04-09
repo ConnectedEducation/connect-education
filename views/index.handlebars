@@ -20,15 +20,16 @@
                 {{/each}}
             </div>
             <div class="controls">
-                <a href="/courses">Edit</a>
-                <a href="/courses">Done</a>
-                <a href="/courses">X</a>
+                <a class="ctrlBtn"href="/courses">Edit</a>
+                <a class="ctrlBtn"href="/courses">Done</a>
+                <a class="ctrlBtn"href="/courses">X</a>
 
                 <!-- find way to select todo element -->
                 <!-- Maybe just submit file. -->
                 <!-- Onclick to request deletion, edit, or upload or whatever -->
-                <input type="file" class="submission">
+                <br>
                 <button class="btnPanel" onclick="submitFile(this.parentNode.parentNode, 'item')">UPLOAD</button>
+                <input type="file" class="submission">
 
             </div>
         </div>

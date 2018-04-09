@@ -79,9 +79,27 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
 }
 
 .controls {
-    width: 100%;
+    width: 95%;
     display: flex;
     justify-content: flex-end;
+    text-decoration: none;
+    color: #fff;
+    background-color: #A41C32;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+}
+
+.ctrlBtn {
+  text-decoration: none;
+  color: #fff;
+  background-color: #93192D;
+
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
 #modal {
@@ -92,7 +110,7 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.5);
-    z-index: 0;
+    z-index: 1;
 }
 
 #modal-closer {
