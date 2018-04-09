@@ -1,6 +1,7 @@
-# ConnectEDucation
+![logo](https://github.com/ConnectedEducation/connect-education/blob/expressify/assets/images/logo.png?raw=true "ConnectED logo")
+# ConnectED
 
-For a school project we've created a prototype of an educational social networking site.
+Connected Education (aka [ConnectED](http://connecteducation.ca/)) is a prototype educational social networking site made for a school project.
 
 # How to Use
 
