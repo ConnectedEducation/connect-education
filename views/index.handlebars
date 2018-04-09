@@ -1,7 +1,7 @@
 <div class="flex full">
     <div class="container flex">
         {{#each todos}}
-        <div class="panel" style="background-color: {{this.color}}" data-_id="{{this._id}}">
+        <div class="panel"  data-_id="{{this._id}}">
             <div class="clickable" onclick="toggleModal(this.parentNode)">
                 <span>{{this.title}}</span>
                 <br>
@@ -28,7 +28,7 @@
                 <!-- Maybe just submit file. -->
                 <!-- Onclick to request deletion, edit, or upload or whatever -->
                 <input type="file" class="submission">
-                <button onclick="submitFile(this.parentNode.parentNode, 'item')">UPLOAD</button>
+                <button class="btnPanel" onclick="submitFile(this.parentNode.parentNode, 'item')">UPLOAD</button>
 
             </div>
         </div>
@@ -58,5 +58,9 @@
     <div id="modal-content"></div>
     <button id="modal-closer">X</button>
 </div>
-
+<script>$(".hover").mouseleave(
+  function() {
+    $(this).removeClass("hover");
+  }
+);</script>
 <!--<script src="/js/modal.js"></script>-->

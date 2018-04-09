@@ -26,13 +26,52 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
     background-color: #e5e5e5;
     padding: 1em;
     margin: 1em;
-    box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+    color:  #a41c32;
     border-radius: 4px 4px 4px 4px;
+  position:relative;
+-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2) inset;
+   -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2) inset;
+        box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2) inset;
 }
 
+
+
+.panel:before, .panel:after
+{
+	content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.panel:after
+{
+	right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+
+
+
+
 .panel:hover {
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    /* box-shadow: 2px 2px 5px rgba(0,0,0,0.7); */
     cursor: pointer;
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.8) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.3) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.3) inset;
 }
 
 .panel > hr {
@@ -80,7 +119,22 @@ nav > .flex {
     text-decoration: none;
     line-height: 3;
     vertical-align: middle;
+    font-family: 'Roboto', Arial, sans-serif;
+
 }
+
+
+
+.nav-item:hover {
+    padding: 0.6em;
+    color: inherit;
+    text-decoration: none;
+    line-height: 3;
+    vertical-align: middle;
+    font-family: 'Roboto', Arial, sans-serif;
+
+}
+
 
 .hover:hover {
     background-color: rgba(255, 255, 255, 0.3);
@@ -105,4 +159,16 @@ nav > .flex {
 .course-link {
     text-decoration: none;
     color: inherit;
+}
+
+.btnPanel {
+  text-decoration: none;
+  color: #fff;
+  background-color: #01ce04;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
 }

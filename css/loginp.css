@@ -1,3 +1,8 @@
+
+/*
+#A41C32 primary red
+*/
+
 html { height: 100% }
 ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
 ::selection { background: #fe57a1; color: #fff; text-shadow: none; }
@@ -117,7 +122,7 @@ body {
     background-attachment: fixed;
     background-size: contain;
 
-    
+
 }
 
 nav, #chats-container, #footer  {
