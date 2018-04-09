@@ -190,3 +190,15 @@ nav > .flex {
   position: relative;
   z-index: 1;
 }
+
+.btnPanel:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #00A403;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
