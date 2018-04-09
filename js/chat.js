@@ -24,7 +24,6 @@ function Chat(/*chatID*/ name) {
 
     let sizeToggleButton = document.createElement('BUTTON');
     sizeToggleButton.className = 'chat-size-toggle-button';
-    sizeToggleButton.className = 'button btn';
     sizeToggleButton.innerHTML = '-';
 
     let chatCollapsible = document.createElement('DIV');
@@ -42,7 +41,6 @@ function Chat(/*chatID*/ name) {
 
     let chatButton = document.createElement('BUTTON');
     chatButton.className = 'chat-submit-button';
-    chatButton.className = 'button btn';
     chatButton.innerHTML = 'Send';
 
     chatContent.style.position = "relative";
