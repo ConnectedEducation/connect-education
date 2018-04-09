@@ -115,7 +115,7 @@ app.get("/dashboard", (req, res) => {
 // General courses
 app.get("/courses", (req, res) => {
     dbFind({ userID: selectedUser.userID }, "users", (result) => {
-        console.log("/dashboard dbFind result:", result[0].courses);
+        console.log("/courses dbFind result:", result[0].courses);
         serveView(req, res, { courses: result[0].courses }, "/views/courses.handlebars");
     });
 });
