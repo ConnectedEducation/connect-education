@@ -76,7 +76,7 @@ let courses = [
     {
         CRN: 1, /* Use _id instead */
         title: "English",
-        description: "description",
+        description: "ENGL 1100, Introduction to University Writing",
         participants: [0, 2],
     },
     // Don't forget to insert second course!
