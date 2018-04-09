@@ -1,6 +1,8 @@
 
 /*
 #A41C32 primary red
+#93192D tint red
+#01ce04 contrast green
 */
 
 html { height: 100% }
@@ -68,14 +70,7 @@ input[type="checkbox"]:checked {
   width: 58px;
 }
 
-/*.toggle {
-  background: url(http://i.minus.com/ibitS19pe8PVX6.png) no-repeat;
-  display: block;
-  height: 16px;
-  margin-top: -20px;
-  width: 87px;
-  z-index: -1;
-}*/
+
 input[type="checkbox"]:checked + .toggle { background-position: 0 -16px }
 .forgot {
   color: #7f7f7f;
@@ -89,6 +84,7 @@ input[type="checkbox"]:checked + .toggle { background-position: 0 -16px }
 
 }
 .forgot:hover { color: #3b3b3b }
+
 input[type="submit"] {
   width:514px;
   height:35px;
@@ -104,7 +100,7 @@ input[type="submit"] {
   padding-top:6px;
   margin: 29px 0 0 29px;
   position:relative;
-
+cursor: pointer;
   border: none;
   background-color: #A41C32;
   background-image: linear-gradient(top,#3db0a6);
@@ -112,6 +108,13 @@ input[type="submit"] {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius:5px;
+}
+
+input[type="submit"]:hover {
+
+  border: none;
+  background-color: #93192D;
+  background-image: linear-gradient(top,#3db0a6);
 }
 
 body {

@@ -76,7 +76,7 @@ let courses = [
     {
         CRN: 1,
         title: "English",
-        description: "description",
+        description: "ENGL 1100, Introduction to University Writing",
         participants: [0, 2],
     },
     {

@@ -1,5 +1,5 @@
 .chat-container {
-    background-color: #A41C32; 
+    background-color: #A41C32;
     width: 350px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
     border-radius: 4px 4px 4px 4px;
@@ -8,7 +8,7 @@
 }
 
 .chat-content {
-    height: 300px;
+    height: 100px;
     padding: 0.5em;
     background-color: #e5e5e5;
     overflow-wrap: break-word;
@@ -32,12 +32,12 @@
 }
 
 .chat-message-textbox {
-    width: 100%;
-    margin: 0px;
+    width: 99%;
     height: 2em;
     overflow: hidden;
     max-height: 120px;
-    resize: none;
+    position:relative;
+
 }
 
 .chat-controls {
@@ -51,7 +51,7 @@
     border-top-right-radius: inherit;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    border-bottom-color: #c1c1c1;
+    border-bottom-color: #A41C32;
     color: white;
 }
 
@@ -75,7 +75,7 @@
 .chat-top > .chat-controls > button{
     width: auto;
     border-radius: inherit;
-    background-color: #861B2D;
+    background-color: #A41C32;
 }
 
 /*make chats-container into a grid*/

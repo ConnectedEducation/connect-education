@@ -6,7 +6,7 @@
                 <br>
                 <p>{{this.description}}</p>
                 <!-- Update onclick to pass argument /course/:courseID -->
-                <!--<button onclick="requestView('/courses/{{this.CRN}}')">Go to course</button>-->
+                <button class="coursesBtn" onclick="requestView('/courses/{{this.CRN}}')">Go to course</button>
             </div>
         {{else}}
         <p class="center">No courses.</p>
