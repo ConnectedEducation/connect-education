@@ -105,17 +105,17 @@ app.get("/", (req, res) => {
 });
 
 // Serve dashboard
-app.get("/index", (req, res) => {
+app.get("/dashboard", (req, res) => {
     dbFind({ userID: selectedUser.userID }, "users", (result) => {
-        console.log("/index dbFind result:", result[0].todos);
-        serveView(req, res, { todos: result[0].todos }, "/views/index.handlebars");
+        console.log("/dashboard dbFind result:", result[0].todos);
+        serveView(req, res, { todos: result[0].todos }, "/views/dashboard.handlebars");
     });
 });
 
 // General courses
 app.get("/courses", (req, res) => {
     dbFind({ userID: selectedUser.userID }, "users", (result) => {
-        console.log("/index dbFind result:", result[0].courses);
+        console.log("/dashboard dbFind result:", result[0].courses);
         serveView(req, res, { courses: result[0].courses }, "/views/courses.handlebars");
     });
 });
