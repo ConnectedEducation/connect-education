@@ -4,8 +4,8 @@
     TODO (In no particular order):
     * editTodo()
     * deleteTodo()
-    * Login page
-    * Set up Socket.io
+    * implement sessions
+    * "add contact" functionality
 */
 
 var express = require("express");
@@ -65,26 +65,30 @@ app.post("/login", (req, res) => {
     let body = "";
 
     req.on("data", (data) => {
-        console.log("data:", data);
         body += data;
     });
-    
+
     req.on("end", () => {
         body = JSON.parse(body);
 
-        dbFind({ userID: Number(body.userID), firstName: body.password }, "users", (result) => {
-            if (result.length > 0) {
-                console.log("USER FOUND:", result);
-                selectedUser = result[0];
-                console.log("Logged in:", selectedUser);
-                res.writeHead(200);
-                res.write(JSON.stringify({userID: result[0].userID, avatarDir: result[0].avatarDir, firstName: result[0].firstName, lastName: result[0].lastName}));
-            } else {
-                console.log("USER NOT FOUND");
-                res.writeHead(401);
-            }
-            res.end();
-        });
+        dbFind({ userID: Number(body.userID), firstName: body.password }, "users",
+            (result) => {
+                if (result.length > 0) {
+                    selectedUser = result[0];
+                    console.log("Logged in:", selectedUser);
+                    res.writeHead(200);
+                    res.write(JSON.stringify({
+                        userID: result[0].userID,
+                        avatarDir: result[0].avatarDir,
+                        firstName: result[0].firstName,
+                        lastName: result[0].lastName
+                    }));
+                } else {
+                    console.log("USER NOT FOUND");
+                    res.writeHead(401);
+                }
+                res.end();
+            });
     });
 });
 
@@ -118,36 +122,26 @@ app.get("/courses", (req, res) => {
 
 // Specific course
 app.get("/courses/:courseID", (req, res) => {
-    // TODO: Get and send course information.
-    // TODO: Maybe make new course collection? Store courses as objects?
-
-    // Serve course description
-    //let course =
     console.log(req.params.courseID);
     dbFind({ CRN: Number(req.params.courseID) }, "courses", (result) => {
         console.log("Got course from DB:", result);
         serveView(req, res, { courseTitle: result[0].title, description: result[0].description, participants: result[0].participants }, "/views/course.handlebars");
     });
-    //res.writeHead(200);
-    //res.end();
-
-    //serveView(req, res, { courseTitle: req.params.courseID }, "/views/course.handlebars");
 });
 
-// HOW GET _ids
-// console.log() the posted stuff to check for ID, store the _id in a variable
-
 // User profile
-// TODO: Switch back to /user/:userID
 app.get("/user/:userID", (req, res) => {
-    //console.log("Serving user profile. ID:", req.params.userID);
-
-    console.log("req.params.userID:", req.params.userID);
-
     dbFind({ userID: Number(req.params.userID) }, "users", (result) => {
         console.log("Serving user profile. ID:", req.params.userID);
         console.log("result:", result);
-        serveView(req, res, { bio: result[0].bio, firstName: result[0].firstName, lastName: result[0].lastName, avatarDir: result[0].avatarDir, courses: result[0].courses, contacts: result[0].contacts }, "/views/user.handlebars")
+        serveView(req, res, {
+            bio: result[0].bio,
+            firstName: result[0].firstName,
+            lastName: result[0].lastName,
+            avatarDir: result[0].avatarDir,
+            courses: result[0].courses,
+            contacts: result[0].contacts
+        }, "/views/user.handlebars")
     });
 });
 
@@ -162,8 +156,8 @@ app.post("/todo", (req, res) => {
         }
 
         try {
-
             let todo = req.body;
+
             todo._id = todo.CRN.toString() + todo.title.replace(" ", "");
             console.log(todo);
 
@@ -180,10 +174,6 @@ app.post("/todo", (req, res) => {
 
 /*"/todo/:todoID/:submission"*/
 app.put("/submission", (req, res) => {
-    console.log("Request received.");
-    // Save the submission in file system
-    // Edit todo object to link to submission URL
-
     let result = "";
     let file = {};
 
@@ -192,9 +182,6 @@ app.put("/submission", (req, res) => {
     });
 
     req.on("end", () => {
-        //file = JSON.parse(result).file;
-
-        console.log(JSON.parse(result).name);
         result = JSON.parse(result);
 
         // Save file to computer using fs
@@ -261,8 +248,7 @@ app.get("/submissions/:fileName", (req, res) => {
 });
 
 // General file-fetching function
-function serveFile(req, res, url /*To override auto url*/) {
-    // TODO: Do error handling! Make sure the file exists before sending it.
+function serveFile(req, res, url) {
     if (!url) {
         url = req.url;
     }
@@ -292,6 +278,7 @@ function serveFile(req, res, url /*To override auto url*/) {
     });
 }
 
+// View-serving function. Interacts with data sent by client side's viewHandler.
 function serveView(req, res, data, url) {
     if (!url) {
         url = req.url;

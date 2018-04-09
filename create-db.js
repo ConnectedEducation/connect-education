@@ -16,8 +16,8 @@ let users = [
         todos: [
             {
                 CRN: 1,
-                title: "Assignment 1",
-                description: "Actually do the assignment.",
+                title: "Shakespeare Paper",
+                description: "Write a biography about Shakespeare",
                 dueDate: "4/20/2018", // Convert to actual date...
                 color: "blue",
                 submissions: []
@@ -26,20 +26,12 @@ let users = [
                 CRN: 2,
                 title: "Assignment 2",
                 description: "Actually do the assignment.",
-                dueDate: "4/20/2018", // Convert to actual date...
+                dueDate: "4/20/2018",
                 color: "yellow",
-                submissions: []
-            },
-            {
-                CRN: 3,
-                title: "Assignment 3",
-                description: "Actually do the dance.",
-                dueDate: "4/20/2020", // Convert to actual date...
-                color: "pink",
                 submissions: []
             }
         ],
-        courses: [1],
+        courses: [1, 2],
         contacts: [1, 2]
     },
     {
@@ -49,8 +41,17 @@ let users = [
         userName: "FranClan",
         avatarDir: "/user/1/media/kon-yui.jpg",
         bio: "It's me, Fran.",
-        todos: [],
-        courses: [1, 2],
+        todos: [
+            {
+                CRN: 1,
+                title: "Shakespeare Paper",
+                description: "Write a biography about Shakespeare",
+                dueDate: "4/20/2018",
+                color: "blue",
+                submissions: []
+            }
+        ],
+        courses: [1],
         contacts: [0]
     },
     {
@@ -60,7 +61,16 @@ let users = [
         userName: "Fibble",
         avatarDir: "/user/2/media/fblthp1.png",
         bio: "I've always hated crowds!",
-        todos: [],
+        todos: [
+            {
+                CRN: 2,
+                title: "Assignment 2",
+                description: "Actually do the assignment.",
+                dueDate: "4/20/2018",
+                color: "yellow",
+                submissions: []
+            }
+        ],
         courses: [2],
         contacts: [0]
     }
@@ -77,26 +87,26 @@ let courses = [
         CRN: 1,
         title: "English",
         description: "ENGL 1100, Introduction to University Writing",
-        participants: [0, 2],
+        participants: [0, 1, 2],
     },
     {
         CRN: 2,
         title: "Spanish",
         description: "Esto es el fin, Grande Padre!",
-        participants: [0, 1]
+        participants: [0, 2]
     }
 ];
 
 // A bit (LOT) of a hackjob:
 // TODO: Denormalize data when creating db...
 // lmao, modularize this nonsense
-function fakeJoin () {
+function fakeJoin() {
     // Join users with courses
-    for(let i = 0; i < users.length; i++){
-        for(let j = 0; j < users[i].courses.length; j++){
+    for (let i = 0; i < users.length; i++) {
+        for (let j = 0; j < users[i].courses.length; j++) {
             let target = users[i].courses[j];
-            for(let k = 0; k < courses.length; k++){
-                if(courses[k].CRN == target){
+            for (let k = 0; k < courses.length; k++) {
+                if (courses[k].CRN == target) {
                     users[i].courses[j] = courses[k];
                 }
             }
@@ -104,18 +114,18 @@ function fakeJoin () {
     }
 
     // Join users with contacts
-    function Contact(user){
+    function Contact(user) {
         this.userID = user.userID;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
         this.courses = user.courses;
     }
 
-    for(let i = 0; i < users.length; i++){
-        for(let j = 0; j < users[i].contacts.length; j++){
+    for (let i = 0; i < users.length; i++) {
+        for (let j = 0; j < users[i].contacts.length; j++) {
             let target = users[i].contacts[j];
-            for(let k = 0; k < users.length; k++){
-                if(users[k].userID == target){
+            for (let k = 0; k < users.length; k++) {
+                if (users[k].userID == target) {
                     users[i].contacts[j] = new Contact(users[k]);
                 }
             }
@@ -123,17 +133,17 @@ function fakeJoin () {
     }
 
     // Join courses and participants
-    function Participant(user){
+    function Participant(user) {
         this.userID = user.userID;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
     }
 
-    for(let i = 0; i < courses.length; i++){
-        for(let j = 0; j < courses[i].participants.length; j++){
+    for (let i = 0; i < courses.length; i++) {
+        for (let j = 0; j < courses[i].participants.length; j++) {
             let target = courses[i].participants[j];
-            for(let k = 0; k < users.length; k++){
-                if(users[k].userID == target){
+            for (let k = 0; k < users.length; k++) {
+                if (users[k].userID == target) {
                     courses[i].participants[j] = new Participant(users[k]);
                 }
             }
@@ -146,11 +156,11 @@ function fakeJoin () {
         this.title = course.title;
     }
 
-    for(let i = 0; i < users.length; i++){
-        for(let j = 0; j < users[i].todos.length; j++){
+    for (let i = 0; i < users.length; i++) {
+        for (let j = 0; j < users[i].todos.length; j++) {
             let target = users[i].todos[j].CRN;
-            for(let k = 0; k < courses.length; k++){
-                if(courses[k].CRN == target){
+            for (let k = 0; k < courses.length; k++) {
+                if (courses[k].CRN == target) {
                     // Super hackjob: CRN contains full course. Change in future.
                     users[i].todos[j].CRN = new Course(courses[k]);
                 }
