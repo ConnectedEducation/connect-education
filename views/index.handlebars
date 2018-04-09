@@ -1,14 +1,14 @@
 <div class="flex full">
     <div class="container flex">
         {{#each todos}}
-        <div class="panel"  data-_id="{{this._id}}">
+        <div class="panel clickable" data-_id="{{this._id}}">
+            <span>{{this.title}}</span>
+            <br>
+            <a onclick="requestView('/courses/{{this.CRN.CRN}}')">{{this.CRN.title}}</a>
+            <br>
+            <span>Due: {{this.dueDate}}</span>
+            <hr>
             <div class="clickable" onclick="toggleModal(this.parentNode)">
-                <span>{{this.title}}</span>
-                <br>
-                <a onclick="requestView('/courses/{{this.CRN.CRN}}')">{{this.CRN.title}}</a>
-                <br>
-                <span>Due: {{this.dueDate}}</span>
-                <hr>
                 <p>{{this.description}}</p>
                 <!-- turn into editable textarea? -->
                 <!-- ADD FUNCTIONALITY (Turn into form?) -->
@@ -16,13 +16,13 @@
             <hr>
             <div class="submissions">
                 {{#each this.submissions}}
-                <a href="/submissions/{{this}}" download="{{this}}">{{this}}</a><br>
-                {{/each}}
+                <a href="/submissions/{{this}}" download="{{this}}">{{this}}</a>
+                <br> {{/each}}
             </div>
             <div class="controls">
-                <a class="ctrlBtn"href="/courses">Edit</a>
-                <a class="ctrlBtn"href="/courses">Done</a>
-                <a class="ctrlBtn"href="/courses">X</a>
+                <a class="ctrlBtn" href="/courses">Edit</a>
+                <a class="ctrlBtn" href="/courses">Done</a>
+                <a class="ctrlBtn" href="/courses">X</a>
 
                 <!-- find way to select todo element -->
                 <!-- Maybe just submit file. -->
@@ -60,8 +60,8 @@
     <button id="modal-closer">X</button>
 </div>
 <script>$(".hover").mouseleave(
-  function() {
-    $(this).removeClass("hover");
-  }
-);</script>
+        function () {
+            $(this).removeClass("hover");
+        }
+    );</script>
 <!--<script src="/js/modal.js"></script>-->

@@ -1,12 +1,12 @@
 <div class="full flex">
     <div class="container flex">
         {{#each courses}}
-            <div class="panel full">
+            <div class="panel full clickable" onclick="requestView('/courses/{{this.CRN}}')">
                 <span>{{this.title}}</span>
                 <br>
                 <p>{{this.description}}</p>
                 <!-- Update onclick to pass argument /course/:courseID -->
-                <button onclick="requestView('/courses/{{this.CRN}}')">Go to course</button>
+                <!--<button onclick="requestView('/courses/{{this.CRN}}')">Go to course</button>-->
             </div>
         {{else}}
         <p class="center">No courses.</p>

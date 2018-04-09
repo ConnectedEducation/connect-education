@@ -26,9 +26,9 @@
 
         <div class="flex">
             <!-- Make requestView call for this more dynamic. Serve different user other than user 0. -->
-            <div class="nav-item hover" onclick="requestView('/user/{{userID}}')">
-                <img class="thumbnail" src="{{avatarDir}}" alt="avatar">
-                <span>&nbsp;&nbsp;{{firstName}} {{lastName}}</span>
+            <div id="user-button" class="nav-item hover">
+                <img id="nav-profile-pic" class="thumbnail" src="{{avatarDir}}" alt="avatar">
+                <span id="user-name">&nbsp;&nbsp;{{firstName}} {{lastName}}</span>
             </div>
         </div>
     </nav>
@@ -47,6 +47,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/chat.js"></script>
     <script src="/js/todo.js"></script>
+    <script src="/js/login.js"></script>
 </body>
 
 </html>

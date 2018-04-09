@@ -13,6 +13,15 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
     box-sizing: border-box;
 }
 
+/*.profile{
+    text-align: center;
+}*/
+
+.profile {
+    margin: 1em;
+    display: inline-block;
+}
+
 .container {
     margin: auto;
     padding: 1em;
@@ -62,11 +71,14 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
             transform:skew(8deg) rotate(3deg);
 }
 
+/*.panel:hover {
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.8) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.3) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.3) inset;
+}*/
 
-
-
-.panel:hover {
-    /* box-shadow: 2px 2px 5px rgba(0,0,0,0.7); */
+.clickable {
     cursor: pointer;
     position:relative;
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.8) inset;
@@ -138,9 +150,7 @@ nav > .flex {
     line-height: 3;
     vertical-align: middle;
     font-family: 'Roboto', Arial, sans-serif;
-
 }
-
 
 
 .nav-item:hover {
@@ -150,12 +160,17 @@ nav > .flex {
     line-height: 3;
     vertical-align: middle;
     font-family: 'Roboto', Arial, sans-serif;
-
 }
 
 
+a {
+    color: blue;
+    cursor: pointer;
+}
+
 .hover:hover {
     background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
 }
 
 .thumbnail {

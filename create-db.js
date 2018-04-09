@@ -74,12 +74,11 @@ for (let i = 0; i < users[0].todos.length; i++) {
 
 let courses = [
     {
-        CRN: 1, /* Use _id instead */
+        CRN: 1,
         title: "English",
         description: "description",
         participants: [0, 2],
     },
-    // Don't forget to insert second course!
     {
         CRN: 2,
         title: "Spanish",

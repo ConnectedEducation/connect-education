@@ -39,29 +39,6 @@ let selectedUser = {
     bio: "No user selected."
 };
 
-// TODO: Change to accept username and password and change query to extract non-security related stuff--don't extract password or _id
-function logIn(userID) {
-    MongoClient.connect(serverURL.concat(dbName), (err, db) => {
-        if (err) { throw err; /* Throw custom error object instead? */ }
-
-        db.db(dbName).collection("users").findOne({ userID: userID }, (err, data) => {
-            if (err) { throw err; };
-
-            if (data != null) {
-                selectedUser = data;
-                console.log("Successfully logged in. UserID:", userID);
-            } else {
-                console.log("No such user found.");
-            }
-
-            db.close();
-        });
-    });
-}
-
-// Move somewhere else? Like /login?
-logIn(0);
-
 // dbFind({ userID: 0 }, "users", (data) => {console.log(data)});
 // => [data]
 function dbFind(query, collection, cb) {
@@ -73,7 +50,6 @@ function dbFind(query, collection, cb) {
         try {
             db.db(dbName).collection(collection).find(query).toArray((err, result) => {
                 if (err) throw err;
-                //console.log(result);
                 if (typeof cb === "function") {
                     cb(result);
                 }
@@ -85,12 +61,39 @@ function dbFind(query, collection, cb) {
     });
 }
 
+app.post("/login", (req, res) => {
+    let body = "";
+
+    req.on("data", (data) => {
+        console.log("data:", data);
+        body += data;
+    });
+    
+    req.on("end", () => {
+        body = JSON.parse(body);
+
+        dbFind({ userID: Number(body.userID), firstName: body.password }, "users", (result) => {
+            if (result.length > 0) {
+                console.log("USER FOUND:", result);
+                selectedUser = result[0];
+                console.log("Logged in:", selectedUser);
+                res.writeHead(200);
+                res.write(JSON.stringify({userID: result[0].userID, avatarDir: result[0].avatarDir, firstName: result[0].firstName, lastName: result[0].lastName}));
+            } else {
+                console.log("USER NOT FOUND");
+                res.writeHead(401);
+            }
+            res.end();
+        });
+    });
+});
+
 // Index
 app.get("/", (req, res) => {
     res.render("login", {
         todos: selectedUser.todos,
-        userID: selectedUser.userID,
         title: "ConnectED",
+        userID: selectedUser.userID,
         firstName: selectedUser.firstName,
         lastName: selectedUser.lastName,
         avatarDir: selectedUser.avatarDir
