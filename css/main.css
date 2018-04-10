@@ -118,6 +118,7 @@ nav, .flex, .panel, .container, .thumbnail, .nav-item, #footer {
   cursor: pointer;
 }
 
+
 #modal {
     display: none;
     width: 100%;

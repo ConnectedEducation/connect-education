@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     document.getElementById("nav-profile-pic").src = user.avatarDir;
                     document.getElementById("user-name").innerText = user.firstName + " " + user.lastName;
                 }
-                requestView('/index');
+                requestView('/dashboard');
             } else {
                 alert("No user found.");
             }
