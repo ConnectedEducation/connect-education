@@ -153,6 +153,14 @@ app.get("/resources", (req, res) => {
     });
 });
 
+// Resources
+app.get("/detail", (req, res) => {
+    dbFind({ userID: selectedUser.userID }, "users", (result) => {
+        console.log("/detail dbFind result:", result[0].detail);
+        serveView(req, res, { detail: result[0].detail }, "/views/detail.handlebars");
+    });
+});
+
 // Create a todo
 app.post("/todo", (req, res) => {
 

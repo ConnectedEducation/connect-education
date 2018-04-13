@@ -84,6 +84,19 @@ input[type="checkbox"]:checked + .toggle { background-position: 0 -16px }
 }
 .forgot:hover { color: #3b3b3b }
 
+.policy {
+  color: #7f7f7f;
+  display: inline-block;
+  float: left;
+  font: 12px/1 sans-serif;
+  left: 10px;
+  position: relative;
+  text-decoration: none;
+  top: 90px;
+
+}
+.policy:hover { color: #3b3b3b }
+
 input[type="submit"] {
   width:514px;
   height:35px;
