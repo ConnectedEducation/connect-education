@@ -15,6 +15,11 @@ Connected Education (aka [ConnectED](http://connecteducation.ca/)) is a prototyp
 6. Then run the command **node create-db.js**
 7. Finally you can run the program by entering the command **node server.js**
 8. Access site from http://localhost:3000 in your browser (preferably Google Chrome)
-9. Login using the test users' login credentials. You can find this in the **ConnectED-TestLoginInfo.txt** file.
+9. Login using the one of the test users' login credentials below
+
+Test Login Credentials:
+  * stuid: 0 pass: Jim
+  * stuid: 1 pass: Fran
+  * stuid: 2 pass: Fblthp
 
 You did it! :thumbsup: Now you can access the site and test its various features!
