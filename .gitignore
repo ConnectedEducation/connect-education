@@ -1,3 +1,6 @@
+# Project specific ignores
+submissions
+
 # Ignore packages installed by NPM
 # End user can use 'npm -install' to download them on their machine
 node_modules
