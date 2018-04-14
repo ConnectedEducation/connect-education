@@ -1,6 +1,0 @@
------Login Info (CASE SENSITIVE)-----
-stuid: 0 pass: Jim
-
-stuid: 1 pass: Fran
-
-stuid: 2 pass: Fblthp
