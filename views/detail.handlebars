@@ -5,8 +5,9 @@
       <!-- Resource Item Heading -->
       <h1 class="my-4">Resource Heading
         <small>Secondary Text</small>
+        <br> <span class="badge badge-secondary"><i class="far fa-heart"></i> 9</span>
+        <br> <small class="text-muted"><i class="fas fa-heart"></i> 9 students liked</small>
       </h1>
-
       <!-- Resource Item Row -->
       <div class="row">
 
@@ -26,11 +27,10 @@
           </ul>
           <div class="btn-group">
             <button type="button" class="btn btn-sm btn-outline-secondary"><i class="far fa-heart"></i></button>
-            <!-- Above should change to <i class="far fa-heart"></i> when clicked and added to favorites -->
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
+            <!-- Above should change to <i class="fas fa-heart"></i> when clicked and added to favorites -->
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')"><b>Read Now!</b></button>
             <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
           </div>
-
         </div>
 
       </div>
@@ -85,7 +85,3 @@
         <p>New assets, tools and resources will be continuously added. Have a Creative Commons or Public Domain suggestion? <a href="http://connecteducation.ca/contact">Contact Us!</a></p>
       </div>
     </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

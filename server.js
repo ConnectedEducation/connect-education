@@ -145,7 +145,7 @@ app.get("/user/:userID", (req, res) => {
     });
 });
 
-// Resources
+// Resources Splash Page
 app.get("/resources", (req, res) => {
     dbFind({ userID: selectedUser.userID }, "users", (result) => {
         console.log("/resources dbFind result:", result[0].resources);
@@ -153,11 +153,19 @@ app.get("/resources", (req, res) => {
     });
 });
 
-// Resources
+// Detail Resource Item Page
 app.get("/detail", (req, res) => {
     dbFind({ userID: selectedUser.userID }, "users", (result) => {
         console.log("/detail dbFind result:", result[0].detail);
         serveView(req, res, { detail: result[0].detail }, "/views/detail.handlebars");
+    });
+});
+
+// Privacy Settings
+app.get("/privacy", (req, res) => {
+    dbFind({ userID: selectedUser.userID }, "users", (result) => {
+        console.log("/privacy dbFind result:", result[0].privacy);
+        serveView(req, res, { privacy: result[0].privacy }, "/views/privacy.handlebars");
     });
 });
 
