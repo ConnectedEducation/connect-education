@@ -1,4 +1,4 @@
-<!-- Custom styles for this template -->
+<!-- Custom styles -->
 <link rel="stylesheet" type="text/css" href="/css/resources.css">
 
     <main role="main">
@@ -8,10 +8,8 @@
         <div class="container">
           <h1 class="jumbotron-heading">FREE Educational Resources</h1>
           <p class="lead text-muted">Everything from textbooks to software to scholarly articles can all be found and shared here in one easy to navigate place!</p>
-          <p>
-            <a href="#" class="btn btn-secondary">See what your friends are reading</a>
-            <a href="#" class="btn btn-secondary">View your Reading List</a>
-          </p>
+            <button type="button" class="btn btn-secondary mx-1" onclick="requestView('/rList')">See what your friends are reading</a>
+            <button type="button" class="btn btn-secondary mx-1" onclick="requestView('/rList')">View your Reading List</a>
         </div>
       </section>
 <!-- Carousel was HERE but deleted because it makes the resources page look too commercial -->
@@ -21,16 +19,17 @@ Thumbnail size is optimized for 348x225 image resolution -->
       <div class="album py-5 bg-light">
         <div class="container">
           <div class="row">
-            
+
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
                     <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
@@ -42,11 +41,12 @@ Thumbnail size is optimized for 348x225 image resolution -->
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
                     <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
@@ -58,11 +58,12 @@ Thumbnail size is optimized for 348x225 image resolution -->
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
                     <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
@@ -74,13 +75,14 @@ Thumbnail size is optimized for 348x225 image resolution -->
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
-                    <small class="text-muted">9 <i class="far fa-heart"></i></small>
+                    <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
                 </div>
               </div>
@@ -90,13 +92,14 @@ Thumbnail size is optimized for 348x225 image resolution -->
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
-                    <small class="text-muted">9 <i class="far fa-heart"></i></small>
+                    <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
                 </div>
               </div>
@@ -106,13 +109,14 @@ Thumbnail size is optimized for 348x225 image resolution -->
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
-                    <small class="text-muted">9 <i class="far fa-heart"></i></small>
+                    <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
                 </div>
               </div>
@@ -122,13 +126,14 @@ Thumbnail size is optimized for 348x225 image resolution -->
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
-                    <small class="text-muted">9 <i class="far fa-heart"></i>'s</small>
+                    <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
                 </div>
               </div>
@@ -138,13 +143,14 @@ Thumbnail size is optimized for 348x225 image resolution -->
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
-                    <small class="text-muted">9 <i class="far fa-heart"></i>'s</small>
+                    <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
                 </div>
               </div>
@@ -154,13 +160,14 @@ Thumbnail size is optimized for 348x225 image resolution -->
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top hover" src="http://placehold.it/348x225/A41C32/ffffff" alt="Card image cap" onclick="requestView('/detail')">
                 <div class="card-body">
+                  <h3>Resource Title</h3>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/detail')">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to Reading List</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="requestView('/rList')">Add to Reading List</button>
                     </div>
-                    <small class="text-muted">9 <i class="far fa-heart"></i>'s</small>
+                    <small class="text-muted"><i class="far fa-heart"></i> 9 students liked</small>
                   </div>
                 </div>
               </div>
