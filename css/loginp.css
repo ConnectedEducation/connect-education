@@ -85,7 +85,6 @@ input[type="checkbox"]:checked + .toggle { background-position: 0 -16px }
 .forgot:hover { color: #3b3b3b }
 
 .policy {
-  color: #7f7f7f;
   display: inline-block;
   float: left;
   font: 12px/1 sans-serif;
