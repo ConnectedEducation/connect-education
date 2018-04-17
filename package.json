@@ -11,13 +11,14 @@
     "type": "git",
     "url": "git+https://github.com/ConnectedEducation/connect-education.git"
   },
-  "author": "ConnectedEducation",
+  "author": "Connected-Education",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ConnectedEducation/connect-education/issues"
   },
   "homepage": "https://github.com/ConnectedEducation/connect-education#readme",
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "mongodb": "^3.0.3",

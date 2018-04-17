@@ -179,6 +179,11 @@ a {
     cursor: pointer;
 }
 
+.hoverBS:hover {
+    background-color: rgba(104, 93, 119, 0.15);
+    cursor: pointer;
+    }
+
 .thumbnail {
     max-height: 36px;
     max-width: 36px;
