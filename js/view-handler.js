@@ -13,7 +13,7 @@ function requestView(url) {
                 let data = responseView.data;
                 renderHandlebars(view, data);
                 currentView = url;
-                window.history.pushState(view, "", url);
+                //window.history.pushState(view, "", url);
             }
         }
         xhr.send();
