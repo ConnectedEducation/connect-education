@@ -1,12 +1,12 @@
 body {
-    padding-top: 2rem;
+
     padding-bottom: 2rem;
   }
-  
+
   h3 {
     margin-top: 2rem;
   }
-  
+
   .row {
     margin-bottom: 1rem;
   }
@@ -20,8 +20,13 @@ body {
     background-color: rgba(86, 61, 124, .15);
     border: 1px solid rgba(86, 61, 124, .2);
   }
-  
+
   hr {
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
+
+.colourTxt {
+  color: #A41C32;
+  text-align: center;
+}
