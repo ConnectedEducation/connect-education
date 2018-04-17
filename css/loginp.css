@@ -12,7 +12,7 @@ html { height: 100% }
 
 .login {
   background: #eceeee;
-  border: 1px solid #42464b;
+  border: 2.5px solid #42464b;
   border-radius: 6px;
   height: 180px;
   width: 575px;
@@ -51,7 +51,6 @@ input[type="password"], input[type="text"] {
   width: 240px;
 }
 
-}
 .show-password {
   display: block;
   height: 16px;
@@ -84,6 +83,18 @@ input[type="checkbox"]:checked + .toggle { background-position: 0 -16px }
 
 }
 .forgot:hover { color: #3b3b3b }
+
+.policy {
+  display: inline-block;
+  float: left;
+  font: 12px/1 sans-serif;
+  left: 10px;
+  position: relative;
+  text-decoration: none;
+  top: 90px;
+
+}
+.policy:hover { color: #3b3b3b }
 
 input[type="submit"] {
   width:514px;

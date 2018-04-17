@@ -105,17 +105,17 @@ app.get("/", (req, res) => {
 });
 
 // Serve dashboard
-app.get("/index", (req, res) => {
+app.get("/dashboard", (req, res) => {
     dbFind({ userID: selectedUser.userID }, "users", (result) => {
-        console.log("/index dbFind result:", result[0].todos);
-        serveView(req, res, { todos: result[0].todos }, "/views/index.handlebars");
+        console.log("/dashboard dbFind result:", result[0].todos);
+        serveView(req, res, { todos: result[0].todos }, "/views/dashboard.handlebars");
     });
 });
 
 // General courses
 app.get("/courses", (req, res) => {
     dbFind({ userID: selectedUser.userID }, "users", (result) => {
-        console.log("/index dbFind result:", result[0].courses);
+        console.log("/courses dbFind result:", result[0].courses);
         serveView(req, res, { courses: result[0].courses }, "/views/courses.handlebars");
     });
 });
@@ -142,6 +142,38 @@ app.get("/user/:userID", (req, res) => {
             courses: result[0].courses,
             contacts: result[0].contacts
         }, "/views/user.handlebars")
+    });
+});
+
+// Resources Splash Page
+app.get("/resources", (req, res) => {
+    dbFind({ userID: selectedUser.userID }, "users", (result) => {
+        console.log("/resources dbFind result:", result[0].resources);
+        serveView(req, res, { resources: result[0].resources }, "/views/resources.handlebars");
+    });
+});
+
+// Detail Resource Item Page
+app.get("/detail", (req, res) => {
+    dbFind({ userID: selectedUser.userID }, "users", (result) => {
+        console.log("/detail dbFind result:", result[0].detail);
+        serveView(req, res, { detail: result[0].detail }, "/views/detail.handlebars");
+    });
+});
+
+// Privacy Settings Page
+app.get("/privacy", (req, res) => {
+    dbFind({ userID: selectedUser.userID }, "users", (result) => {
+        console.log("/privacy dbFind result:", result[0].privacy);
+        serveView(req, res, { privacy: result[0].privacy }, "/views/privacy.handlebars");
+    });
+});
+
+// Reading List Page
+app.get("/rList", (req, res) => {
+    dbFind({ userID: selectedUser.userID }, "users", (result) => {
+        console.log("/rList dbFind result:", result[0].rList);
+        serveView(req, res, { rList: result[0].rList }, "/views/rList.handlebars");
     });
 });
 

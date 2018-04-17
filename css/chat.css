@@ -1,5 +1,7 @@
 .chat-container {
     background-color: #A41C32;
+    border: 1px solid #6d7176;
+    border-radius: 6px;
     width: 350px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
     border-radius: 4px 4px 4px 4px;
