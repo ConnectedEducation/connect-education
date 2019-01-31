@@ -6,7 +6,7 @@ Connected Education (aka ConnectEd) is a prototype educational social networking
 Its purpose is provide more open communication between educators and students which will encourage better collaboration and learning. It also has its own open-source educational resource centre where students can quickly access **free** learning materials and easily share them with their peers.
 
 # How to View
-You can view an early prototype of the site [here](https://connectededucation.github.io/connect-education/) but to view the final product you must download the repo and follow the below instructions. You can also access some screenshots of the final site in the portfolio section of [Eric's Website](http://www.ericfantillo.com/).
+You can view an early prototype of the site [here](https://connectededucation.github.io/connect-education/) but to view the final product you must download the repo and follow the [below](https://github.com/ConnectedEducation/connect-education#how-to-use) instructions. You can also access some screenshots of the final site in the portfolio section of [Eric's website](http://www.ericfantillo.com/). You can also view a screenshot at [Paolo's website](https://pj623.github.io/).
 
 # How to Use
 *Assuming you have Node.js installed*
